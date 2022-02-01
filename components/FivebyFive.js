@@ -90,6 +90,7 @@ const FiveByFive = function (props) {
         <View style={styles.outerContainerFive}>
           <View style={styles.container_5}>
             <View style={styles.circle_five}></View>
+            <View style={styles.gradient_circle_5}></View>
             <Text style={styles.text}>Hello</Text>
           </View>
         </View>
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'center',
-    minHeight: 100,
+    minHeight: '100%',
   },
   container_5: {
     flexDirection: 'row',
@@ -127,14 +128,25 @@ const styles = StyleSheet.create({
   circle_five: {
     flex: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    height: 100,
-    width: 100,
+    height: '100%',
+    width: '100%',
     borderRadius: 50,
     position: 'absolute',
     top: 0,
     left: 0,
     zIndex: 1,
   },
-  text: { flex: 1 },
+  gradient_circle_5: {
+    flex: 1,
+    height: 200,
+    width: 200,
+    // zIndex: -1,
+    borderRadius: 100,
+    position: 'absolute',
+    top: -50,
+    left: -50,
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+  },
+  // text: { flex: 1 },
 });
 export default FiveByFive;
