@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import React, { useState, useEffect, useRef } from 'react';
+import FiveByFive from './components/FivebyFive';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <FiveByFive />
+      <StatusBar style='auto' />
     </View>
   );
 }
