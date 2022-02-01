@@ -82,26 +82,59 @@ const FiveByFive = function (props) {
     //   </View>
     //   <View id='text' className='text_five' ref={textRef}></View>
     // </View>
-    <View style={styles.outerContainerFive}>
+    <View style={styles.container}>
       <ImageBackground
         source={image}
         resizeMode='cover'
-        style={styles.background}></ImageBackground>
+        style={styles.background}>
+        <View style={styles.outerContainerFive}>
+          <View style={styles.container_5}>
+            <View style={styles.circle_five}></View>
+            <Text style={styles.text}>Hello</Text>
+          </View>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  outerContainerFive: {
+  container: {
     flex: 1,
-    // flexDirection: 'row',
     width: '100%',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   background: {
     flex: 1,
-    // justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  text: {},
+  outerContainerFive: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    minHeight: 100,
+  },
+  container_5: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100,
+    width: 100,
+    position: 'relative',
+  },
+  circle_five: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1,
+  },
+  text: { flex: 1 },
 });
 export default FiveByFive;
