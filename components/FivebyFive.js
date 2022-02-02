@@ -91,7 +91,14 @@ const FiveByFive = function (props) {
           <View style={styles.container_5}>
             <View style={styles.circle_five}></View>
             <View style={styles.gradient_circle_5}></View>
+
             <Text style={styles.text}>Hello</Text>
+          </View>
+          <View style={styles.round_container_5}>
+            <View style={styles.dot_5}></View>
+            <View style={styles.dot_5}></View>
+            <View style={styles.dot_5}></View>
+            <View style={styles.dot_5}></View>
           </View>
         </View>
       </ImageBackground>
@@ -147,6 +154,30 @@ const styles = StyleSheet.create({
     left: -50,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
   },
-  // text: { flex: 1 },
+  round_container_5: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 100,
+    // zIndex: 1,
+  },
+  dot_5: {
+    height: 16,
+    width: 16,
+    marginRight: 4,
+    marginLeft: 4,
+    borderRadius: 50,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderColor: '#7F6C72',
+  },
+  dot_5_completed_5: {
+    backgroundColor: '#7F6C72',
+  },
+  text: {
+    letterSpacing: 0.05,
+    textAlign: 'center',
+    lineHeight: 43,
+    fontSize: 20,
+  },
 });
 export default FiveByFive;
