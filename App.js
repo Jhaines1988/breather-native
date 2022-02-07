@@ -25,28 +25,5 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-    // <View style={styles.container}>
-    //   {/* <FiveByFive />
-    //   <StatusBar style='auto' /> */}
-    //   <Home />
-    //   {/* <MoveABall /> */}
-    // </View>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
