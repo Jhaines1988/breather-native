@@ -16,24 +16,27 @@ Animated.Components.View
 
 */
 
-const MoveABall = ({ navigation }) => {
+const MoveABall = ({ route, navigation }) => {
+  const { numberOfCycles } = route.params;
   const [cycle, setCycle] = useState(0);
   const breathingCircle = useRef(new Animated.Value(1)).current;
   const innerText = useRef(new Animated.Value(1)).current;
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
   useEffect(() => {
-    // change to props  rounds or default to four
     if (!animationEnabled) {
       setAnimationEnabled(true);
+    }
+
+    if (cycle < numberOfCycles) {
       TimerText();
     }
 
     return () => {
-      if (cycle <= 2 && animationEnabled) {
+      if (cycle === numberOfCycles - 1) {
+        setDisplayText('Finished');
+        setAnimationEnabled(false);
       }
-      // if last round bool
-      // setDisplayText("finished")
     };
   }, [cycle]);
 
@@ -41,7 +44,7 @@ const MoveABall = ({ navigation }) => {
     return () => {
       setAnimationEnabled(false);
     };
-  }, []);
+  });
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -114,91 +117,3 @@ const MoveABall = ({ navigation }) => {
 };
 
 export default MoveABall;
-
-/*
-const loopingAnimation = () => {
-    Animated.sequence([
-      Animated.timing(myAnimatedValue, {
-        toValue: 7,
-        duration: 5500,
-        useNativeDriver: true,
-        Easing: Easing.bezier(0.65, 0, 0.35, 1),
-      }),
-      Animated.timing(myAnimatedValue, {
-        toValue: 1,
-        duration: 5500,
-        Easing: Easing.bezier(0.65, 0, 0.35, 1),
-        useNativeDriver: true,
-      }),
-    ]).start(({ finished }) => {
-      setCycle(cycle + 1);
-      setDisplayText('good');
-    });
-  };
-
-
-  const trigger = () => {
-    setTimeout(() => {
-      Animated.timing(myAnimatedValue, {
-        toValue: 6,
-        duration: 5500,
-        useNativeDriver: false,
-      }).start();
-    }, 1000);
-  };
-  const timer = function () {
-    // let text = textRef.current;
-    // let container = containerRef.current;
-    // let circle = circleRef.current;
-    // let roundsToggle = roundsRef.current.childNodes;
-    // text.innerText = 'Breathe In';
-    // container.className = 'container_five grow';
-    Animated.timing(myAnimatedValue, {
-      toValue: 6,
-      duration: 5500,
-      useNativeDriver: false,
-    }).start();
-    setTimeout(() => {
-      // text.innerText = 'Breathe Out';
-      Animated.timing(myAnimatedValue, {
-        toValue: 1,
-        duration: 5500,
-        useNativeDriver: false,
-      }).start();
-      // container.className = 'container_five shrink';
-      setTimeout(() => {
-        setCycle(cycle + 1);
-
-        // if (rounds > roundsCompleted) {
-        //   roundsToggle[cycle].className = 'dot_5 completed_5';
-        //   setRoundsCompleted(roundsCompleted + 1);
-        // }
-      }, breatheTime);
-    }, breatheTime);
-  };
-
-    // useEffect(() => {
-  //   if (cycle <= 0) {
-  //     timer();
-  //   }
-
-  //   return () => {
-  //     if (cycle > 0) {
-  //       Animated.timing(myAnimatedValue).stop();
-  //     }
-  //   };
-  // });
-
-
-
-
-    // Animated.timing(breathingCircle, {
-      //   toValue: 1,
-      //   duration: 5500,
-      //   useNativeDriver: true,
-      //   Easing: Easing.bezier(0.65, 0, 0.35, 1),
-      // }).start(({ finished }) => {
-      //   setDisplayText('In');
-      //   setCycle(cycle + 1);
-      // });
-*/

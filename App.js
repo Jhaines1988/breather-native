@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import FiveByFive from './components/FivebyFive';
 import MoveABall from './animationPlayground/MoveABall';
 import Home from './components/Home/Home';

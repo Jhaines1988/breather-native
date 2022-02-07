@@ -10,13 +10,12 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const image = require('../../landscapeSmall.png');
 const Home = ({ navigation }) => {
   // const exerciseSelector = props.exerciseSelector;
   const [selectedExercise, setSelectedExercise] = useState('');
   // const rounds = useRef();
-  const [numberOfRounds, setNumberOfRounds] = useState(4);
+  const [numberOfRounds, setNumberOfRounds] = useState(2);
 
   // const [selectedExercise, setSelectedExercise] = useState('box');
   const changeSelectorHandler = function (event) {
@@ -60,7 +59,6 @@ const Home = ({ navigation }) => {
               value='Box Breathing'></Picker.Item>
           </Picker>
           <Text style={styles.label_rounds}>Set Number Of Rounds</Text>
-          {/* <View style={styles.rounds_container}> */}
           <Picker
             numberOfLines={1}
             style={styles.rounds}
@@ -69,15 +67,19 @@ const Home = ({ navigation }) => {
             onValueChange={(itemValue, itemIndex) => {
               setNumberOfRounds(itemValue);
             }}>
-            <Picker.Item label='4' value='4'></Picker.Item>
-            <Picker.Item label='6' value='6'></Picker.Item>
-            <Picker.Item label='8' value='8'></Picker.Item>
-            <Picker.Item label='10' value='10'></Picker.Item>
+            <Picker.Item label='2' value={2}></Picker.Item>
+            <Picker.Item label='4' value={4}></Picker.Item>
+            <Picker.Item label='6' value={6}></Picker.Item>
+            <Picker.Item label='8' value={8}></Picker.Item>
+            <Picker.Item label='10' value={10}></Picker.Item>
           </Picker>
-          {/* </View> */}
           <Button
             title='Start'
-            onPress={() => navigation.navigate('Ball')}></Button>
+            onPress={() =>
+              navigation.navigate('Ball', {
+                numberOfCycles: numberOfRounds,
+              })
+            }></Button>
         </View>
       </ImageBackground>
     </View>
