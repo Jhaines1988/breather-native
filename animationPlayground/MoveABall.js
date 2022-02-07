@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, View, StyleSheet, Text } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { Easing } from 'react-native-reanimated';
 // import { useEffect } from 'react';
 
@@ -15,24 +16,32 @@ Animated.Components.View
 
 */
 
-const MoveABall = () => {
+const MoveABall = ({ navigation }) => {
   const [cycle, setCycle] = useState(0);
   const breathingCircle = useRef(new Animated.Value(1)).current;
   const innerText = useRef(new Animated.Value(1)).current;
   const [displayText, setDisplayText] = useState('In');
-
+  const [animationEnabled, setAnimationEnabled] = useState(false);
   useEffect(() => {
     // change to props  rounds or default to four
-    if (cycle <= 1) {
+    if (!animationEnabled) {
+      setAnimationEnabled(true);
       TimerText();
     }
 
     return () => {
+      if (cycle <= 2 && animationEnabled) {
+      }
       // if last round bool
       // setDisplayText("finished")
     };
   }, [cycle]);
 
+  useEffect(() => {
+    return () => {
+      setAnimationEnabled(false);
+    };
+  }, []);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -59,13 +68,13 @@ const MoveABall = () => {
   const TimerText = () => {
     Animated.parallel([
       Animated.timing(breathingCircle, {
-        toValue: 7,
+        toValue: 8,
         duration: 5500,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
       }),
       Animated.timing(innerText, {
-        toValue: 7,
+        toValue: 8,
         duration: 5500,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
