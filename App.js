@@ -13,6 +13,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   let [fontsLoaded] = useFonts({
     'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
+    'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
   });
 
   if (!fontsLoaded) {

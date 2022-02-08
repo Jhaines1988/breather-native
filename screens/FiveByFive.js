@@ -1,26 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Easing, View, StyleSheet, Text } from 'react-native';
-
-// import { Easing } from 'react-native-reanimated';
-// import { useEffect } from 'react';
-
-// think of these questions
-/*
-1: where is the item right now? exact X,Y position on the screen
-Animated.Value.Animated
-2: where is the element moving to?
-Animated.Types.Spring
-3: Which element are we moving?
-Animated.Components.View
-
-
-*/
-
+import {
+  Animated,
+  Easing,
+  View,
+  StyleSheet,
+  Text,
+  Platform,
+  ImageBackground,
+} from 'react-native';
+const image = require('../landscapeSmall.png');
 const FiveByFive = ({ route, navigation }) => {
   const { numberOfCycles } = route.params;
   const [cycle, setCycle] = useState(0);
   const breathingCircle = useRef(new Animated.Value(1)).current;
-  const innerText = useRef(new Animated.Value(1)).current;
+  const outerCircle = useRef(new Animated.Value(1)).current;
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
   useEffect(() => {
@@ -34,7 +27,7 @@ const FiveByFive = ({ route, navigation }) => {
 
     return () => {
       if (cycle === numberOfCycles - 1) {
-        setDisplayText('Finished');
+        setDisplayText('Done');
         setAnimationEnabled(false);
       }
     };
@@ -53,19 +46,47 @@ const FiveByFive = ({ route, navigation }) => {
       justifyContent: 'center',
     },
     ball: {
-      height: 60,
-      width: 60,
-      borderRadius: 30,
-      borderWidth: 30,
-      borderColor: 'green',
+      height: 70,
+      width: 70,
+      borderRadius: 40,
+      borderWidth: 40,
+      borderColor: 'rgba(255, 255, 255, 0.85)',
       transform: [{ scale: breathingCircle }],
+    },
+    round_container_5: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      // marginTop: 10,
+      top: 10,
+      // zIndex: 1,
+    },
+    dot_5: {
+      height: 16,
+      width: 16,
+      marginRight: 4,
+      marginLeft: 4,
+      borderRadius: 50,
+      borderStyle: 'solid',
+      borderWidth: 2,
+      borderColor: '#7F6C72',
+      backgroundColor: cycle > 1 ? '#7F6C72' : 'black',
+    },
+    gradientCircle: {
+      flex: 1,
+      height: 140,
+      width: 140,
+      borderRadius: 100,
+      position: 'absolute',
+      top: Platform.OS === 'android' ? 210 : 280,
+      transform: [{ scale: outerCircle }],
+      backgroundColor: 'rgba(255, 255, 255, 0.4)',
     },
     text: {
       alignSelf: 'center',
-      bottom: 45,
-      fontFamily: 'Lato-Light',
+      bottom: 60,
+      fontFamily: 'Lato-Bold',
+      fontSize: 30,
       position: 'relative',
-      transform: [{ scale: innerText }],
     },
   });
 
@@ -77,7 +98,7 @@ const FiveByFive = ({ route, navigation }) => {
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
       }),
-      Animated.timing(innerText, {
+      Animated.timing(outerCircle, {
         toValue: 8,
         duration: 5500,
         useNativeDriver: true,
@@ -95,7 +116,7 @@ const FiveByFive = ({ route, navigation }) => {
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
         }),
-        Animated.timing(innerText, {
+        Animated.timing(outerCircle, {
           toValue: 1,
           duration: 5500,
           useNativeDriver: true,
@@ -109,11 +130,17 @@ const FiveByFive = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={image} resizeMode='cover' style={styles.container}>
+      <Animated.View style={styles.gradientCircle}></Animated.View>
       <Animated.View style={styles.ball}></Animated.View>
-
-      <Animated.Text style={styles.text}>{displayText}</Animated.Text>
-    </View>
+      <Text style={styles.text}>{displayText}</Text>
+      <View style={styles.round_container_5}>
+        <View style={styles.dot_5}></View>
+        <View style={styles.dot_5}></View>
+        <View style={styles.dot_5}></View>
+        <View style={styles.dot_5}></View>
+      </View>
+    </ImageBackground>
   );
 };
 

@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.75)',
   },
   main_heading: {
+    fontFamily: 'Lato-Light',
     fontWeight: 'bold',
     textAlign: 'center',
     lineHeight: 30,
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     color: '#0D2968',
   },
   home_info: {
+    fontFamily: 'Lato-Light',
     fontSize: 14,
     lineHeight: 14,
     textAlign: 'center',
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
 
   label: {
     // top: 15,
+    fontFamily: 'Lato-Light',
     paddingBottom: 14,
     lineHeight: 20,
     fontSize: 14,
@@ -131,8 +134,10 @@ const styles = StyleSheet.create({
 
   exercise_items: {
     bottom: 70,
+    fontFamily: 'Lato-Light',
   },
   label_rounds: {
+    fontFamily: 'Lato-Light',
     lineHeight: 20,
     fontSize: 14,
     letterSpacing: 0.05,
@@ -142,6 +147,7 @@ const styles = StyleSheet.create({
   rounds: { bottom: 29 },
 
   round_items: {
+    fontFamily: 'Lato-Light',
     bottom: 100,
     paddingVertical: 55,
   },
