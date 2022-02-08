@@ -116,4 +116,4 @@ const FiveByFive = ({ route, navigation }) => {
   );
 };
 
-// export default FiveByFive;
+export default FiveByFive;

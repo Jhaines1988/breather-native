@@ -10,7 +10,7 @@ import {
   ImageBackground,
 } from 'react-native';
 
-const image = require('../../landscapeSmall.png');
+const image = require('../landscapeSmall.png');
 const Home = ({ navigation }) => {
   // const exerciseSelector = props.exerciseSelector;
   const [selectedExercise, setSelectedExercise] = useState('');
@@ -76,7 +76,7 @@ const Home = ({ navigation }) => {
           <Button
             title='Start'
             onPress={() =>
-              navigation.navigate('Ball', {
+              navigation.navigate('FiveByFive', {
                 numberOfCycles: numberOfRounds,
               })
             }></Button>

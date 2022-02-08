@@ -8,8 +8,6 @@ import {
   ImageBackground,
 } from 'react-native';
 
-// const image = { uri: 'https://unsplash.com/photos/h7FysA92Jww' };
-// const image = { uri: 'https://reactjs.org/logo-og.png' };
 const image = require('../landscapeSmall.png');
 import roundDots from '../Helpers/roundDots';
 const FiveByFive = function (props) {
@@ -168,4 +166,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-export default FiveByFive;
+// export default FiveByFive;
