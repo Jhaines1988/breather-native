@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, View, StyleSheet, Text } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 // import { Easing } from 'react-native-reanimated';
 // import { useEffect } from 'react';
 
@@ -63,6 +63,7 @@ const FiveByFive = ({ route, navigation }) => {
     text: {
       alignSelf: 'center',
       bottom: 45,
+      fontFamily: 'Lato-Light',
       position: 'relative',
       transform: [{ scale: innerText }],
     },
