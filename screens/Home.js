@@ -13,7 +13,7 @@ import {
 const image = require('../landscapeSmall.png');
 const Home = ({ navigation }) => {
   // const exerciseSelector = props.exerciseSelector;
-  const [selectedExercise, setSelectedExercise] = useState('');
+  const [selectedExercise, setSelectedExercise] = useState('5x5');
   // const rounds = useRef();
   const [numberOfRounds, setNumberOfRounds] = useState(2);
 
@@ -75,11 +75,17 @@ const Home = ({ navigation }) => {
           </Picker>
           <Button
             title='Start'
-            onPress={() =>
-              navigation.navigate('FiveByFive', {
-                numberOfCycles: numberOfRounds,
-              })
-            }></Button>
+            onPress={() => {
+              if (selectedExercise === '5x5') {
+                navigation.navigate('FiveByFive', {
+                  numberOfCycles: numberOfRounds,
+                });
+              } else if (selectedExercise === 'Box Breathing') {
+                navigation.navigate('BoxBreathing', {
+                  numberOfCycles: numberOfRounds,
+                });
+              }
+            }}></Button>
         </View>
       </ImageBackground>
     </View>
