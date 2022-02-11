@@ -8,11 +8,15 @@ import {
   StyleSheet,
   Image,
   ImageBackground,
+  UIManager,
 } from 'react-native';
+
+import roundDots from '../Helpers/roundDots';
 
 const image = require('../landscapeSmall.png');
 const BoxBreathing = ({ route, navigation }) => {
   const [cycle, setCycle] = useState(0);
+  const [currentCycle, setCurrentCycle] = useState(2);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
 
@@ -21,7 +25,6 @@ const BoxBreathing = ({ route, navigation }) => {
   const styles = StyleSheet.create({
     background: {
       flex: 1,
-      //   alignContent: 'center',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -66,7 +69,7 @@ const BoxBreathing = ({ route, navigation }) => {
       borderStyle: 'solid',
       borderWidth: 2,
       borderColor: '#7F6C72',
-      backgroundColor: cycle > 1 ? '#7F6C72' : 'black',
+      //   backgroundColor: '#7F6C72',
     },
   });
   const { numberOfCycles } = route.params;
@@ -111,11 +114,11 @@ const BoxBreathing = ({ route, navigation }) => {
     ]).start(({ finished }) => {
       setDisplayText('Hold');
       setTimeout(() => {
+        setDisplayText('Out');
         out();
       }, 4000);
     });
     function out() {
-      setDisplayText('Out');
       Animated.parallel([
         Animated.timing(breathingCircle, {
           toValue: 1,
@@ -134,11 +137,25 @@ const BoxBreathing = ({ route, navigation }) => {
         setTimeout(() => {
           setDisplayText('In');
           setCycle(cycle + 1);
+          setCurrentCycle(currentCycle + 1);
         }, 4000);
       });
     }
+  };
 
-    const handleDisplayTextChange = () => {};
+  const displayDots = roundDots(numberOfCycles);
+
+  const renderDisplayDots = () => {
+    return displayDots.map((r, i) => {
+      return (
+        <View
+          key={i}
+          style={[
+            styles.dot_5,
+            { backgroundColor: cycle >= i + 1 ? '#7F6C72' : null },
+          ]}></View>
+      );
+    });
   };
   return (
     <ImageBackground
@@ -148,12 +165,7 @@ const BoxBreathing = ({ route, navigation }) => {
       <Animated.View style={styles.gradientCircle}></Animated.View>
       <Animated.View style={styles.circle}></Animated.View>
       <Text style={styles.text}>{displayText}</Text>
-      <View style={styles.round_container_5}>
-        <View style={styles.dot_5}></View>
-        <View style={styles.dot_5}></View>
-        <View style={styles.dot_5}></View>
-        <View style={styles.dot_5}></View>
-      </View>
+      <View style={styles.round_container_5}>{renderDisplayDots()}</View>
     </ImageBackground>
   );
 };

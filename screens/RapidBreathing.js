@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 const image = require('../landscapeSmall.png');
 import roundDots from '../Helpers/roundDots';
-const FiveByFive = ({ route, navigation }) => {
+const RapidBreathing = ({ route, navigation }) => {
   const { numberOfCycles } = route.params;
   const [cycle, setCycle] = useState(0);
   const breathingCircle = useRef(new Animated.Value(1)).current;
@@ -53,13 +53,15 @@ const FiveByFive = ({ route, navigation }) => {
       borderWidth: 40,
       borderColor: 'rgba(255, 255, 255, 0.85)',
       transform: [{ scale: breathingCircle }],
+      // top: 10,
     },
     round_container_5: {
       flexDirection: 'row',
       justifyContent: 'center',
       // marginTop: 10,
-      top: 10,
+      // top: 35,
       // zIndex: 1,
+      flexWrap: 'wrap',
     },
     dot_5: {
       height: 16,
@@ -70,7 +72,6 @@ const FiveByFive = ({ route, navigation }) => {
       borderStyle: 'solid',
       borderWidth: 2,
       borderColor: '#7F6C72',
-      backgroundColor: cycle > 1 ? '#7F6C72' : 'black',
     },
     gradientCircle: {
       flex: 1,
@@ -95,13 +96,13 @@ const FiveByFive = ({ route, navigation }) => {
     Animated.parallel([
       Animated.timing(breathingCircle, {
         toValue: 8,
-        duration: 5500,
+        duration: 2000,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
       }),
       Animated.timing(outerCircle, {
         toValue: 8,
-        duration: 5500,
+        duration: 2000,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
       }),
@@ -113,13 +114,13 @@ const FiveByFive = ({ route, navigation }) => {
       Animated.parallel([
         Animated.timing(breathingCircle, {
           toValue: 1,
-          duration: 5500,
+          duration: 1300,
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
         }),
         Animated.timing(outerCircle, {
           toValue: 1,
-          duration: 5500,
+          duration: 1300,
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
         }),
@@ -153,4 +154,4 @@ const FiveByFive = ({ route, navigation }) => {
   );
 };
 
-export default FiveByFive;
+export default RapidBreathing;

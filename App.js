@@ -9,7 +9,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FiveByFive from './screens/FiveByFive';
 import Home from './screens/Home';
 import BoxBreathing from './screens/BoxBreathing';
+import RapidBreathing from './screens/RapidBreathing';
+
 const Stack = createNativeStackNavigator();
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
@@ -34,6 +37,7 @@ export default function App() {
           // options={{ animationEnabled: false }}
         />
         <Stack.Screen name='BoxBreathing' component={BoxBreathing} />
+        <Stack.Screen name='RapidBreathing' component={RapidBreathing} />
       </Stack.Navigator>
     </NavigationContainer>
   );

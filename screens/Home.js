@@ -27,6 +27,20 @@ const Home = ({ navigation }) => {
     let selectedRounds = rounds.current.value;
     exerciseSelector(e, selectedExercise, selectedRounds);
   };
+
+  const numberOfRoundsSelector = () => {
+    let roundsMax = 100;
+    let roundsArray = [];
+    for (var i = 0; i < 100; i++) {
+      roundsArray.push(i);
+    }
+
+    return roundsArray.map((r, i) => {
+      return (
+        <Picker.Item key={i} label={`${i + 1}`} value={i + 1}></Picker.Item>
+      );
+    });
+  };
   return (
     <View style={styles.form_container}>
       <ImageBackground
@@ -57,6 +71,9 @@ const Home = ({ navigation }) => {
             <Picker.Item
               label='Box Breathing'
               value='Box Breathing'></Picker.Item>
+            <Picker.Item
+              label='Rapid Breathing'
+              value='Rapid Breathing'></Picker.Item>
           </Picker>
           <Text style={styles.label_rounds}>Set Number Of Rounds</Text>
           <Picker
@@ -67,11 +84,12 @@ const Home = ({ navigation }) => {
             onValueChange={(itemValue, itemIndex) => {
               setNumberOfRounds(itemValue);
             }}>
-            <Picker.Item label='2' value={2}></Picker.Item>
+            {numberOfRoundsSelector()}
+            {/* <Picker.Item label='2' value={2}></Picker.Item>
             <Picker.Item label='4' value={4}></Picker.Item>
             <Picker.Item label='6' value={6}></Picker.Item>
             <Picker.Item label='8' value={8}></Picker.Item>
-            <Picker.Item label='10' value={10}></Picker.Item>
+            <Picker.Item label='10' value={10}></Picker.Item> */}
           </Picker>
           <Button
             title='Start'
@@ -82,6 +100,10 @@ const Home = ({ navigation }) => {
                 });
               } else if (selectedExercise === 'Box Breathing') {
                 navigation.navigate('BoxBreathing', {
+                  numberOfCycles: numberOfRounds,
+                });
+              } else if (selectedExercise === 'Rapid Breathing') {
+                navigation.navigate('RapidBreathing', {
                   numberOfCycles: numberOfRounds,
                 });
               }
@@ -141,6 +163,8 @@ const styles = StyleSheet.create({
   exercise_items: {
     bottom: 70,
     fontFamily: 'Lato-Light',
+    // borderBottomColor: 'black',
+    // borderBottomWidth: StyleSheet.hairlineWidth,
   },
   label_rounds: {
     fontFamily: 'Lato-Light',
