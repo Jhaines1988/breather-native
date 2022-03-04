@@ -19,9 +19,7 @@ const Home = ({ navigation }) => {
 
   // const [selectedExercise, setSelectedExercise] = useState('box');
   const changeSelectorHandler = function (event) {
-    console.log('ex', event.target.value);
     setSelectedExercise(event.target.value);
-    console.log(rounds.current.value);
   };
   const handleSubmit = function (e) {
     let selectedRounds = rounds.current.value;
@@ -31,7 +29,7 @@ const Home = ({ navigation }) => {
   const numberOfRoundsSelector = () => {
     let roundsMax = 100;
     let roundsArray = [];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 50; i++) {
       roundsArray.push(i);
     }
 
@@ -85,11 +83,6 @@ const Home = ({ navigation }) => {
               setNumberOfRounds(itemValue);
             }}>
             {numberOfRoundsSelector()}
-            {/* <Picker.Item label='2' value={2}></Picker.Item>
-            <Picker.Item label='4' value={4}></Picker.Item>
-            <Picker.Item label='6' value={6}></Picker.Item>
-            <Picker.Item label='8' value={8}></Picker.Item>
-            <Picker.Item label='10' value={10}></Picker.Item> */}
           </Picker>
           <Button
             title='Start'
@@ -132,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.75)',
   },
   main_heading: {
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Lato-Bold',
     fontWeight: 'bold',
     textAlign: 'center',
     lineHeight: 30,
@@ -140,7 +133,7 @@ const styles = StyleSheet.create({
     color: '#0D2968',
   },
   home_info: {
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Lato-Regular',
     fontSize: 14,
     lineHeight: 14,
     textAlign: 'center',
@@ -149,7 +142,7 @@ const styles = StyleSheet.create({
 
   label: {
     // top: 15,
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Lato-Regular',
     paddingBottom: 14,
     lineHeight: 20,
     fontSize: 14,
@@ -162,12 +155,12 @@ const styles = StyleSheet.create({
 
   exercise_items: {
     bottom: 70,
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Lato-Regular',
     // borderBottomColor: 'black',
     // borderBottomWidth: StyleSheet.hairlineWidth,
   },
   label_rounds: {
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Lato-Regular',
     lineHeight: 20,
     fontSize: 14,
     letterSpacing: 0.05,
@@ -177,7 +170,7 @@ const styles = StyleSheet.create({
   rounds: { bottom: 29 },
 
   round_items: {
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Lato-Regular',
     bottom: 100,
     paddingVertical: 55,
   },

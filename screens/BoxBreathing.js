@@ -13,7 +13,6 @@ import {
 
 import roundDots from '../Helpers/roundDots';
 
-const image = require('../landscapeSmall.png');
 const BoxBreathing = ({ route, navigation }) => {
   const [cycle, setCycle] = useState(0);
   const [currentCycle, setCurrentCycle] = useState(2);
@@ -27,6 +26,7 @@ const BoxBreathing = ({ route, navigation }) => {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'black',
     },
     gradientCircle: {
       flex: 1,
@@ -43,6 +43,7 @@ const BoxBreathing = ({ route, navigation }) => {
       width: 70,
       borderRadius: 40,
       borderWidth: 40,
+      position: 'relative',
       borderColor: 'rgba(255, 255, 255, 0.85)',
       transform: [{ scale: breathingCircle }],
     },
@@ -51,14 +52,13 @@ const BoxBreathing = ({ route, navigation }) => {
       bottom: 60,
       fontFamily: 'Lato-Bold',
       fontSize: 30,
-      position: 'relative',
+      // position: 'relative',
     },
     round_container_5: {
       flexDirection: 'row',
       justifyContent: 'center',
       // marginTop: 10,
-      top: 10,
-      // zIndex: 1,
+      // top: 10,
     },
     dot_5: {
       height: 16,
@@ -70,6 +70,13 @@ const BoxBreathing = ({ route, navigation }) => {
       borderWidth: 2,
       borderColor: '#7F6C72',
       //   backgroundColor: '#7F6C72',
+    },
+    currentRound: {
+      fontFamily: 'Lato-Bold',
+      // top: 44,
+      color: 'white',
+      fontSize: 44,
+      // position: 'relative',
     },
   });
   const { numberOfCycles } = route.params;
@@ -158,15 +165,26 @@ const BoxBreathing = ({ route, navigation }) => {
     });
   };
   return (
-    <ImageBackground
-      source={image}
-      resizeMode='cover'
-      style={styles.background}>
+    <View style={styles.background}>
       <Animated.View style={styles.gradientCircle}></Animated.View>
       <Animated.View style={styles.circle}></Animated.View>
       <Text style={styles.text}>{displayText}</Text>
-      <View style={styles.round_container_5}>{renderDisplayDots()}</View>
-    </ImageBackground>
+      <View style={styles.round_container_5}>
+        {numberOfCycles <= 10 ? (
+          renderDisplayDots()
+        ) : (
+          <View
+            style={{
+              top: 100,
+              flex: 1,
+              alignContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={styles.currentRound}>{cycle + 1}</Text>
+          </View>
+        )}
+      </View>
+    </View>
   );
 };
 

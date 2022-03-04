@@ -45,6 +45,7 @@ const RapidBreathing = ({ route, navigation }) => {
       alignContent: 'center',
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'gray',
     },
     ball: {
       height: 70,
@@ -145,12 +146,12 @@ const RapidBreathing = ({ route, navigation }) => {
     });
   };
   return (
-    <ImageBackground source={image} resizeMode='cover' style={styles.container}>
+    <View style={styles.container}>
       <Animated.View style={styles.gradientCircle}></Animated.View>
       <Animated.View style={styles.ball}></Animated.View>
       <Text style={styles.text}>{displayText}</Text>
       <View style={styles.round_container_5}>{renderDisplayDots()}</View>
-    </ImageBackground>
+    </View>
   );
 };
 
