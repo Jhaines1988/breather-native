@@ -8,16 +8,14 @@ import {
   ImageBackground,
 } from 'react-native';
 
-// const image = { uri: 'https://unsplash.com/photos/h7FysA92Jww' };
-// const image = { uri: 'https://reactjs.org/logo-og.png' };
 const image = require('../landscapeSmall.png');
 import roundDots from '../Helpers/roundDots';
 const FiveByFive = function (props) {
-  //   const [cycle, setCycle] = useState(0);
-  //   const [roundsCompleted, setRoundsCompleted] = useState(1);
-  //   const totalTime = 11000;
-  //   const breatheTime = 5500;
-  //   const rounds = Number(props.rounds || 4);
+  // const [cycle, setCycle] = useState(0);
+  // const [roundsCompleted, setRoundsCompleted] = useState(1);
+  // const totalTime = 11000;
+  // const breatheTime = 5500;
+  // const rounds = Number(props.rounds || 4);
 
   //   const containerRef = useRef();
   //   const textRef = useRef();
@@ -70,18 +68,6 @@ const FiveByFive = function (props) {
   //     };
   //   });
   return (
-    // <View className='outer_container_five'>
-    //   <View className='container_five' id='container_five' ref={containerRef}>
-    //     <View className='circle_five' id='circle_five' ref={circleRef}></View>
-    //     <View className='gradient-circle_five'></View>
-    //   </View>
-    //   <View className='round-container_5' ref={roundsRef}>
-    //     {roundArray.map((rounds) => {
-    //       return <Text key={rounds} id={rounds} className='dot_5'></Text>;
-    //     })}
-    //   </View>
-    //   <View id='text' className='text_five' ref={textRef}></View>
-    // </View>
     <View style={styles.container}>
       <ImageBackground
         source={image}
@@ -180,4 +166,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-export default FiveByFive;
+// export default FiveByFive;
