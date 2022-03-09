@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Text,
   Platform,
-  ImageBackground,
 } from 'react-native';
 const image = require('../landscapeSmall.png');
 import roundDots from '../Helpers/roundDots';
@@ -59,7 +58,7 @@ const FiveByFive = ({ route, navigation }) => {
       flexDirection: 'row',
       justifyContent: 'center',
       // marginTop: 10,
-      top: 10,
+      top: 18,
       // zIndex: 1,
     },
     dot_5: {
@@ -89,6 +88,12 @@ const FiveByFive = ({ route, navigation }) => {
       fontFamily: 'Lato-Bold',
       fontSize: 30,
       position: 'relative',
+    },
+    currentRound: {
+      fontFamily: 'Lato-Bold',
+      color: 'white',
+      fontSize: 44,
+      position: 'absolute',
     },
   });
 
@@ -149,7 +154,21 @@ const FiveByFive = ({ route, navigation }) => {
       <Animated.View style={styles.gradientCircle}></Animated.View>
       <Animated.View style={styles.ball}></Animated.View>
       <Text style={styles.text}>{displayText}</Text>
-      <View style={styles.round_container_5}>{renderDisplayDots()}</View>
+      {numberOfCycles <= 10 ? (
+        <View style={styles.round_container_5}>{renderDisplayDots()}</View>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'column-reverse',
+            justifyContent: 'flex-end',
+            height: 8,
+            // width: '5%',
+            bottom: 44,
+            right: 10,
+          }}>
+          <Text style={styles.currentRound}>{cycle + 1}</Text>
+        </View>
+      )}
     </View>
   );
 };

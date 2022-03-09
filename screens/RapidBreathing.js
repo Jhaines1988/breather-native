@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Text,
   Platform,
-  ImageBackground,
 } from 'react-native';
 const image = require('../landscapeSmall.png');
 import roundDots from '../Helpers/roundDots';
@@ -59,10 +58,7 @@ const RapidBreathing = ({ route, navigation }) => {
     round_container_5: {
       flexDirection: 'row',
       justifyContent: 'center',
-      // marginTop: 10,
-      // top: 35,
-      // zIndex: 1,
-      flexWrap: 'wrap',
+      top: 18,
     },
     dot_5: {
       height: 16,
@@ -90,6 +86,12 @@ const RapidBreathing = ({ route, navigation }) => {
       fontFamily: 'Lato-Bold',
       fontSize: 30,
       position: 'relative',
+    },
+    currentRound: {
+      fontFamily: 'Lato-Bold',
+      color: 'white',
+      fontSize: 44,
+      position: 'absolute',
     },
   });
 
@@ -150,7 +152,20 @@ const RapidBreathing = ({ route, navigation }) => {
       <Animated.View style={styles.gradientCircle}></Animated.View>
       <Animated.View style={styles.ball}></Animated.View>
       <Text style={styles.text}>{displayText}</Text>
-      <View style={styles.round_container_5}>{renderDisplayDots()}</View>
+      {numberOfCycles <= 10 ? (
+        <View style={styles.round_container_5}>{renderDisplayDots()}</View>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'column-reverse',
+            justifyContent: 'flex-end',
+            height: 8,
+            bottom: 44,
+            right: 10,
+          }}>
+          <Text style={styles.currentRound}>{cycle + 1}</Text>
+        </View>
+      )}
     </View>
   );
 };

@@ -6,9 +6,7 @@ import {
   Text,
   Button,
   StyleSheet,
-  Image,
-  ImageBackground,
-  UIManager,
+  Platform,
 } from 'react-native';
 
 import roundDots from '../Helpers/roundDots';
@@ -173,28 +171,12 @@ const BoxBreathing = ({ route, navigation }) => {
             flexDirection: 'column-reverse',
             justifyContent: 'flex-end',
             height: 8,
-            // width: '5%',
             bottom: 44,
             right: 10,
           }}>
           <Text style={styles.currentRound}>{cycle + 1}</Text>
         </View>
       )}
-      {/* <View style={styles.round_container_5}>
-        {numberOfCycles <= 10 ? (
-          renderDisplayDots()
-        ) : (
-          <View
-            style={{
-              top: 100,
-              flex: 1,
-              alignContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={styles.currentRound}>{cycle + 1}</Text>
-          </View>
-        )}
-      </View> */}
     </View>
   );
 };
