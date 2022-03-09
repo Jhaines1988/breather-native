@@ -1,80 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Animated,
-  Easing,
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  Image,
-  ImageBackground,
-  UIManager,
-} from 'react-native';
+import { Animated, Easing, View, Text } from 'react-native';
 
-import roundDots from '../Helpers/roundDots';
+import roundDots from '../../Helpers/roundDots';
+import renderStyle from './boxBreathingStyles';
 
 const BoxBreathing = ({ route, navigation }) => {
   const [cycle, setCycle] = useState(0);
   const [currentCycle, setCurrentCycle] = useState(2);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
-
-  const breathingCircle = useRef(new Animated.Value(1)).current;
-  const outerCircle = useRef(new Animated.Value(1)).current;
-  const styles = StyleSheet.create({
-    background: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'black',
-    },
-    gradientCircle: {
-      flex: 1,
-      height: 140,
-      width: 140,
-      borderRadius: 100,
-      position: 'absolute',
-      top: Platform.OS === 'android' ? 210 : 280,
-      transform: [{ scale: outerCircle }],
-      backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    },
-    circle: {
-      height: 70,
-      width: 70,
-      borderRadius: 40,
-      borderWidth: 40,
-      position: 'relative',
-      borderColor: 'rgba(255, 255, 255, 0.85)',
-      transform: [{ scale: breathingCircle }],
-    },
-    text: {
-      alignSelf: 'center',
-      bottom: 60,
-      fontFamily: 'Lato-Bold',
-      fontSize: 30,
-    },
-    round_container_5: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      top: 18,
-    },
-    dot_5: {
-      height: 16,
-      width: 16,
-      marginRight: 4,
-      marginLeft: 4,
-      borderRadius: 50,
-      borderStyle: 'solid',
-      borderWidth: 2,
-      borderColor: '#7F6C72',
-    },
-    currentRound: {
-      fontFamily: 'Lato-Bold',
-      color: 'white',
-      fontSize: 44,
-      position: 'absolute',
-    },
-  });
+  const [styles, breathingCircle, outerCircle] = renderStyle();
   const { numberOfCycles } = route.params;
 
   useEffect(() => {
@@ -173,28 +108,12 @@ const BoxBreathing = ({ route, navigation }) => {
             flexDirection: 'column-reverse',
             justifyContent: 'flex-end',
             height: 8,
-            // width: '5%',
             bottom: 44,
             right: 10,
           }}>
           <Text style={styles.currentRound}>{cycle + 1}</Text>
         </View>
       )}
-      {/* <View style={styles.round_container_5}>
-        {numberOfCycles <= 10 ? (
-          renderDisplayDots()
-        ) : (
-          <View
-            style={{
-              top: 100,
-              flex: 1,
-              alignContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={styles.currentRound}>{cycle + 1}</Text>
-          </View>
-        )}
-      </View> */}
     </View>
   );
 };
