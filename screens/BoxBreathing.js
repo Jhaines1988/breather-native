@@ -52,13 +52,11 @@ const BoxBreathing = ({ route, navigation }) => {
       bottom: 60,
       fontFamily: 'Lato-Bold',
       fontSize: 30,
-      // position: 'relative',
     },
     round_container_5: {
       flexDirection: 'row',
       justifyContent: 'center',
-      // marginTop: 10,
-      // top: 10,
+      top: 18,
     },
     dot_5: {
       height: 16,
@@ -69,14 +67,12 @@ const BoxBreathing = ({ route, navigation }) => {
       borderStyle: 'solid',
       borderWidth: 2,
       borderColor: '#7F6C72',
-      //   backgroundColor: '#7F6C72',
     },
     currentRound: {
       fontFamily: 'Lato-Bold',
-      // top: 44,
       color: 'white',
       fontSize: 44,
-      // position: 'relative',
+      position: 'absolute',
     },
   });
   const { numberOfCycles } = route.params;
@@ -169,7 +165,22 @@ const BoxBreathing = ({ route, navigation }) => {
       <Animated.View style={styles.gradientCircle}></Animated.View>
       <Animated.View style={styles.circle}></Animated.View>
       <Text style={styles.text}>{displayText}</Text>
-      <View style={styles.round_container_5}>
+      {numberOfCycles <= 10 ? (
+        <View style={styles.round_container_5}>{renderDisplayDots()}</View>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'column-reverse',
+            justifyContent: 'flex-end',
+            height: 8,
+            // width: '5%',
+            bottom: 44,
+            right: 10,
+          }}>
+          <Text style={styles.currentRound}>{cycle + 1}</Text>
+        </View>
+      )}
+      {/* <View style={styles.round_container_5}>
         {numberOfCycles <= 10 ? (
           renderDisplayDots()
         ) : (
@@ -183,7 +194,7 @@ const BoxBreathing = ({ route, navigation }) => {
             <Text style={styles.currentRound}>{cycle + 1}</Text>
           </View>
         )}
-      </View>
+      </View> */}
     </View>
   );
 };
