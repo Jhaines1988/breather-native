@@ -6,10 +6,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import FiveByFive from './screens/FiveByFive';
+import FiveByFive from './screens/FiveByFive/FiveByFive';
 import Home from './screens/Home';
-import BoxBreathing from './screens/BoxBreathing';
-import RapidBreathing from './screens/RapidBreathing';
+import BoxBreathing from './screens/boxBreathing/BoxBreathing';
+import RapidBreathing from './screens/rapidBreathing/RapidBreathing';
 
 const Stack = createNativeStackNavigator();
 
