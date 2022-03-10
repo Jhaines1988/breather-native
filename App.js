@@ -10,7 +10,7 @@ import FiveByFive from './screens/FiveByFive/FiveByFive';
 import Home from './screens/Home';
 import BoxBreathing from './screens/boxBreathing/BoxBreathing';
 import RapidBreathing from './screens/rapidBreathing/RapidBreathing';
-
+import Reiterate from './screens/reIterateAnimation/reiterate';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -23,10 +23,10 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
+  // cange initial route name back to HOME!
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='Reiterate'>
         <Stack.Screen
           name='Home'
           component={Home}
@@ -39,6 +39,7 @@ export default function App() {
         />
         <Stack.Screen name='BoxBreathing' component={BoxBreathing} />
         <Stack.Screen name='RapidBreathing' component={RapidBreathing} />
+        <Stack.Screen name='Reiterate' component={Reiterate} />
       </Stack.Navigator>
     </NavigationContainer>
   );
