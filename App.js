@@ -26,7 +26,7 @@ export default function App() {
   // cange initial route name back to HOME!
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Reiterate'>
+      <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen
           name='Home'
           component={Home}

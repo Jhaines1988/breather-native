@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { render } from 'react-dom';
 import {
   Animated,
   Easing,
@@ -8,7 +7,6 @@ import {
   Text,
   Platform,
 } from 'react-native';
-import { borderColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 import roundDots from '../../Helpers/roundDots';
 const Reiterate = () => {
@@ -17,7 +15,6 @@ const Reiterate = () => {
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
-
   const smallCircle = useRef(new Animated.Value(1)).current;
   const InnerCircle = useRef(new Animated.Value(1)).current;
   const outerCircle = useRef(new Animated.Value(1)).current;
@@ -194,24 +191,6 @@ const Reiterate = () => {
         </View>
       </View>
     </View>
-    //   <Animated.View style={styles.ball}></Animated.View>
-    //   <Text style={styles.text}>{displayText}</Text>
-    //   {numberOfCycles <= 10 ? (
-    //     <View style={styles.round_container_5}>{renderDisplayDots()}</View>
-    //   ) : (
-    //     <View
-    //       style={{
-    //         flexDirection: 'column-reverse',
-    //         justifyContent: 'flex-end',
-    //         height: 8,
-    //         // width: '5%',
-    //         bottom: 44,
-    //         right: 10,
-    //       }}>
-    //       <Text style={styles.currentRound}>{cycle + 1}</Text>
-    //     </View>
-    //   )}
-    // </View>
   );
 };
 
