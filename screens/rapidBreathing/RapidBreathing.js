@@ -11,7 +11,6 @@ import renderStyle from './RapidBreathingStyles';
 import roundDots from '../../Helpers/roundDots';
 const RapidBreathing = ({ route, navigation }) => {
   const { numberOfCycles } = route.params;
-
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
@@ -183,7 +182,7 @@ const RapidBreathing = ({ route, navigation }) => {
           </Animated.View>
         </Animated.View>
         <Text style={styles.text}>{displayText}</Text>
-        {numberOfCycles > 3 ? (
+        {numberOfCycles > 10 ? (
           <View style={styles.displayDotsContainer}>{renderDisplayDots()}</View>
         ) : null}
         <View style={styles.currentRoundContainer}>
