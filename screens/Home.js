@@ -8,16 +8,22 @@ import {
   StyleSheet,
   Platform,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 
 const image = require('../landscapeSmall.png');
+
+import Card from '../components/Card';
+import TitleText from '../components/TitleText';
+import BodyText from '../components/BodyText';
+
 const Home = ({ navigation }) => {
-  // const exerciseSelector = props.exerciseSelector;
   const [selectedExercise, setSelectedExercise] = useState('5x5');
-  // const rounds = useRef();
   const [numberOfRounds, setNumberOfRounds] = useState(2);
 
-  // const [selectedExercise, setSelectedExercise] = useState('box');
+  const placeholder =
+    'Here is some Information about this breathing exercise. Here are some instructions about how to perform it';
+
   const changeSelectorHandler = function (event) {
     setSelectedExercise(event.target.value);
   };
@@ -41,68 +47,34 @@ const Home = ({ navigation }) => {
   };
   return (
     <View style={styles.form_container}>
-      <ImageBackground
-        source={image}
-        resizeMode='cover'
-        style={styles.imageBackground}>
-        <View style={styles.inner_form_container}>
-          <Text style={styles.main_heading}> Take a Breather </Text>
-          <Text style={styles.home_info}>
-            Choose the style of breathing exercise and number of rounds you want
-            to do. Breather will provide visual cues throughout your exercise
-            and let you know when you're done.
-          </Text>
-
-          {/* <View style={styles.exercise_container}> */}
-
-          <Text style={styles.label}>Choose Your Exercise</Text>
-
-          <Picker
-            numberOfLines={1}
-            style={styles.exercises}
-            itemStyle={styles.exercise_items}
-            selectedValue={selectedExercise}
-            onValueChange={(itemValue, itemIndex) => {
-              setSelectedExercise(itemValue);
-            }}>
-            <Picker.Item label='5x5' value='5x5'></Picker.Item>
-            <Picker.Item
-              label='Box Breathing'
-              value='Box Breathing'></Picker.Item>
-            <Picker.Item
-              label='Rapid Breathing'
-              value='Rapid Breathing'></Picker.Item>
-          </Picker>
-          <Text style={styles.label_rounds}>Set Number Of Rounds</Text>
-          <Picker
-            numberOfLines={1}
-            style={styles.rounds}
-            itemStyle={styles.round_items}
-            selectedValue={numberOfRounds}
-            onValueChange={(itemValue, itemIndex) => {
-              setNumberOfRounds(itemValue);
-            }}>
-            {numberOfRoundsSelector()}
-          </Picker>
-          <Button
-            title='Start'
-            onPress={() => {
-              if (selectedExercise === '5x5') {
-                navigation.navigate('FiveByFive', {
-                  numberOfCycles: numberOfRounds,
-                });
-              } else if (selectedExercise === 'Box Breathing') {
-                navigation.navigate('BoxBreathing', {
-                  numberOfCycles: numberOfRounds,
-                });
-              } else if (selectedExercise === 'Rapid Breathing') {
-                navigation.navigate('RapidBreathing', {
-                  numberOfCycles: numberOfRounds,
-                });
-              }
-            }}></Button>
-        </View>
-      </ImageBackground>
+      <View>
+        <Text>TESTING</Text>
+      </View>
+      <ScrollView
+        // bounces={false}
+        // contentInset={{ top: 2, left: 4, bottom: 0, right: 0 }}
+        // // scrollIndicatorInsets={{ top: 33, left: 55, bottom: 55, right: 44 }}
+        // ref={offset}
+        // contentOffset={offset}
+        directionalLockEnabled={true}
+        contentContainerStyle={styles.scrollExercises}>
+        <Card style={styles.card}>
+          <TitleText title='Box Breathing' />
+          <BodyText text={placeholder} />
+        </Card>
+        <Card style={styles.card}>
+          <TitleText title='Resonant Coherent Breathing' />
+          <BodyText text={placeholder} />
+        </Card>
+        <Card style={styles.card}>
+          <TitleText title='Tummo Style' />
+          <BodyText text={placeholder} />
+        </Card>
+        <Card style={styles.card}>
+          <TitleText title='Custom' />
+          <BodyText text={placeholder} />
+        </Card>
+      </ScrollView>
     </View>
   );
 };
@@ -112,17 +84,28 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,.8)',
   },
-  imageBackground: {
+  scrollExercises: {
+    // flexGrow: 1,
+    // // height: '100%',
+    // alignSelf: 'center',
+    marginLeft: 10,
+    // marginVertical: 8,
+    paddingTop: 10,
+  },
+  card: {
     flex: 1,
-    width: '100%',
-    height: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
   },
+
   inner_form_container: {
     flex: 0.7,
     justifyContent: 'flex-start',
-    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
   },
   main_heading: {
     fontFamily: 'Lato-Bold',
@@ -177,3 +160,64 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+/*
+ <View style={styles.inner_form_container}>
+        <Text style={styles.main_heading}> Take a Breather </Text>
+        <Text style={styles.home_info}>
+          Choose the style of breathing exercise and number of rounds you want
+          to do. Breather will provide visual cues throughout your exercise and
+          let you know when you're done.
+        </Text>
+
+
+
+        <Text style={styles.label}>Choose Your Exercise</Text>
+
+        <Picker
+          numberOfLines={1}
+          mode='dropdown'
+          prompt='testing'
+          style={styles.exercises}
+          itemStyle={styles.exercise_items}
+          selectedValue={selectedExercise}
+          onValueChange={(itemValue, itemIndex) => {
+            setSelectedExercise(itemValue);
+          }}>
+          <Picker.Item label='5x5' value='5x5'></Picker.Item>
+          <Picker.Item
+            label='Box Breathing'
+            value='Box Breathing'></Picker.Item>
+          <Picker.Item
+            label='Rapid Breathing'
+            value='Rapid Breathing'></Picker.Item>
+        </Picker>
+        <Text style={styles.label_rounds}>Set Number Of Rounds</Text>
+        <Picker
+          numberOfLines={1}
+          mode='dropdown'
+          style={styles.rounds}
+          itemStyle={styles.round_items}
+          selectedValue={numberOfRounds}
+          onValueChange={(itemValue, itemIndex) => {
+            setNumberOfRounds(itemValue);
+          }}>
+          {numberOfRoundsSelector()}
+        </Picker>
+        <Button
+          title='Start'
+          onPress={() => {
+            if (selectedExercise === '5x5') {
+              navigation.navigate('FiveByFive', {
+                numberOfCycles: numberOfRounds,
+              });
+            } else if (selectedExercise === 'Box Breathing') {
+              navigation.navigate('BoxBreathing', {
+                numberOfCycles: numberOfRounds,
+              });
+            } else if (selectedExercise === 'Rapid Breathing') {
+              navigation.navigate('RapidBreathing', {
+                numberOfCycles: numberOfRounds,
+              });
+            }
+          }}></Button>
+      </View> */
