@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { StyleSheet, Animated, Easing } from 'react-native';
 
-const RapidBreathingAnimation = (setCycle, setDisplayText, cycle) => {
+const BoxBreathingAnimation = (setCycle, setDisplayText, cycle) => {
   const smallCircle = useRef(new Animated.Value(1)).current;
   const InnerCircle = useRef(new Animated.Value(1)).current;
   const outerCircle = useRef(new Animated.Value(1)).current;
@@ -10,49 +10,55 @@ const RapidBreathingAnimation = (setCycle, setDisplayText, cycle) => {
     Animated.parallel([
       Animated.timing(InnerCircle, {
         toValue: 2,
-        duration: 1500,
+        duration: 4000,
         useNativeDriver: true,
-        Easing: Easing.bezier(0.65, 0, 0.25, 1),
+        Easing: Easing.bezier(0.65, 0, 0.35, 1),
       }),
       Animated.timing(outerCircle, {
         toValue: 3,
-        duration: 1500,
+        duration: 4000,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
       }),
       Animated.timing(smallCircle, {
         toValue: 2,
-        duration: 1500,
+        duration: 4000,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
       }),
     ]).start(({ finished }) => {
-      setDisplayText('Out');
-      out();
+      setDisplayText('Hold');
+      setTimeout(() => {
+        setDisplayText('Out');
+        out();
+      }, 4000);
     });
     function out() {
       Animated.parallel([
         Animated.timing(InnerCircle, {
-          toValue: 0.25,
-          duration: 1000,
+          toValue: 1,
+          duration: 4000,
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
         }),
         Animated.timing(outerCircle, {
-          toValue: 0.12,
-          duration: 1000,
+          toValue: 1,
+          duration: 4000,
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
         }),
         Animated.timing(smallCircle, {
-          toValue: 0.25,
-          duration: 1000,
+          toValue: 1,
+          duration: 4000,
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
         }),
       ]).start(({ finished }) => {
-        setDisplayText('In');
-        setCycle(cycle + 1);
+        setDisplayText('Hold');
+        setTimeout(() => {
+          setDisplayText('In');
+          setCycle(cycle + 1);
+        }, 4000);
       });
     }
   };
@@ -60,4 +66,4 @@ const RapidBreathingAnimation = (setCycle, setDisplayText, cycle) => {
   return [InnerCircle, outerCircle, smallCircle, BreathingCycle];
 };
 
-export default RapidBreathingAnimation;
+export default BoxBreathingAnimation;

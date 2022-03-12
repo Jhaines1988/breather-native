@@ -3,21 +3,24 @@ import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
 
 import roundDots from '../../Helpers/roundDots';
 import RenderStyleAndAnimation from '../../constants/AnimationStyle';
-
+import BreathingCircles from '../../components/BreathingCircles';
+import RenderDisplayDots from '../../components/DisplayDots';
+import CurrentRound from '../../components/CurrentRound';
+import BoxBreathingAnimation from './BoxBreathingAnimation';
 const BoxBreathing = ({ route, navigation }) => {
   const { numberOfCycles } = route.params;
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
-  const [styles, InnerCircle, outerCircle, smallCircle] =
-    RenderStyleAndAnimation();
+  const [InnerCircle, outerCircle, smallCircle, BreathingCycle] =
+    BoxBreathingAnimation();
   useEffect(() => {
     if (!animationEnabled) {
       setAnimationEnabled(true);
     }
 
     if (cycle < numberOfCycles) {
-      TimerText();
+      BreathingCycle(setCycle, setDisplayText, cycle);
     }
 
     return () => {
@@ -34,96 +37,39 @@ const BoxBreathing = ({ route, navigation }) => {
     };
   });
 
-  const TimerText = () => {
-    Animated.parallel([
-      Animated.timing(InnerCircle, {
-        toValue: 2,
-        duration: 4000,
-        useNativeDriver: true,
-        Easing: Easing.bezier(0.65, 0, 0.35, 1),
-      }),
-      Animated.timing(outerCircle, {
-        toValue: 3,
-        duration: 4000,
-        useNativeDriver: true,
-        Easing: Easing.bezier(0.65, 0, 0.35, 1),
-      }),
-      Animated.timing(smallCircle, {
-        toValue: 2,
-        duration: 4000,
-        useNativeDriver: true,
-        Easing: Easing.bezier(0.65, 0, 0.35, 1),
-      }),
-    ]).start(({ finished }) => {
-      setDisplayText('Hold');
-      setTimeout(() => {
-        setDisplayText('Out');
-        out();
-      }, 4000);
-    });
-    function out() {
-      Animated.parallel([
-        Animated.timing(InnerCircle, {
-          toValue: 1,
-          duration: 4000,
-          useNativeDriver: true,
-          Easing: Easing.bezier(0.65, 0, 0.35, 1),
-        }),
-        Animated.timing(outerCircle, {
-          toValue: 1,
-          duration: 4000,
-          useNativeDriver: true,
-          Easing: Easing.bezier(0.65, 0, 0.35, 1),
-        }),
-        Animated.timing(smallCircle, {
-          toValue: 1,
-          duration: 4000,
-          useNativeDriver: true,
-          Easing: Easing.bezier(0.65, 0, 0.35, 1),
-        }),
-      ]).start(({ finished }) => {
-        setDisplayText('Hold');
-        setTimeout(() => {
-          setDisplayText('In');
-          setCycle(cycle + 1);
-        }, 4000);
-      });
-    }
-  };
-
-  const displayDots = roundDots(numberOfCycles);
-
-  const renderDisplayDots = () => {
-    return displayDots.map((r, i) => {
-      return (
-        <View
-          key={i}
-          style={[
-            styles.displayDots,
-            { backgroundColor: cycle >= i + 1 ? '#7F6C72' : null },
-          ]}></View>
-      );
-    });
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.screen}>
-        <Animated.View style={styles.outerCircle}>
-          <Animated.View style={styles.InnerCircle}>
-            <Animated.View style={styles.smallCircle}></Animated.View>
-          </Animated.View>
-        </Animated.View>
+        <BreathingCircles
+          InnerCircle={InnerCircle}
+          outerCircle={outerCircle}
+          smallCircle={smallCircle}
+        />
         <Text style={styles.text}>{displayText}</Text>
         {numberOfCycles < 10 ? (
-          <View style={styles.displayDotsContainer}>{renderDisplayDots()}</View>
+          <RenderDisplayDots
+            style={styles.displayDotsContainer}
+            numberOfCycles={numberOfCycles}
+            cycle={cycle}
+          />
         ) : null}
-        <View style={styles.currentRoundContainer}>
-          <Text style={styles.currentRound}>{cycle + 1}</Text>
-        </View>
+        <CurrentRound cycle={cycle} />
       </View>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'black',
+  },
+  displayDotsContainer: {},
 
+  text: { fontSize: 22, color: 'white', position: 'absolute' },
+});
 export default BoxBreathing;
