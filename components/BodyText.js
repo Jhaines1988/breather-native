@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingVertical: 10,
     paddingHorizontal: 2,
-    marginVertical: 4,
+    // marginVertical: 4,
     lineHeight: 18,
     textAlign: 'center',
     justifyContent: 'center',

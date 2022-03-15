@@ -2,14 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const Card = (props) => {
+  // (selectedExercise === 'Box Breathing') {
+  //   navigation.navigate('BoxBreathing', {
+  //     numberOfCycles: numberOfRounds,
+  const navigation = props.navigation;
+  const onSelectExercise = () => {
+    navigation.navigate('SelectRounds', { exercise: props.exercise });
+  };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={styles.touchable} onPress={onSelectExercise}>
       <View style={{ ...styles.card, ...props.style }}>{props.children}</View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  touchable: { alignItems: 'center' },
   card: {
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
@@ -22,8 +30,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '90%',
     maxWidth: 380,
-    height: '1%',
-    maxHeight: 150,
+    height: '40%',
+    maxHeight: 250,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

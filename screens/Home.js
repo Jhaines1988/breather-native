@@ -22,7 +22,7 @@ const Home = ({ navigation }) => {
   const [numberOfRounds, setNumberOfRounds] = useState(2);
 
   const placeholder =
-    'Here is some Information about this breathing exercise. Here are some instructions about how to perform it';
+    'Here is some Information about this breathing exercise. Here are some instructions about how to perform itHere is some Information about this breathing exercise. Here are some instructions about how to perform itHere is some Information about this breathing exercise. Here are some instructions about how to perform it';
 
   const changeSelectorHandler = function (event) {
     setSelectedExercise(event.target.value);
@@ -47,26 +47,26 @@ const Home = ({ navigation }) => {
   };
   return (
     <View style={styles.form_container}>
-      <View>
-        <Text>TESTING</Text>
-      </View>
+      <View></View>
       <ScrollView
-        // bounces={false}
-        // contentInset={{ top: 2, left: 4, bottom: 0, right: 0 }}
-        // // scrollIndicatorInsets={{ top: 33, left: 55, bottom: 55, right: 44 }}
-        // ref={offset}
-        // contentOffset={offset}
+        bounces={false}
         directionalLockEnabled={true}
         contentContainerStyle={styles.scrollExercises}>
-        <Card style={styles.card}>
+        <Card
+          style={styles.card}
+          exercise='BoxBreathing'
+          navigation={navigation}>
           <TitleText title='Box Breathing' />
           <BodyText text={placeholder} />
         </Card>
-        <Card style={styles.card}>
+        <Card style={styles.card} exercise='FiveByFive' navigation={navigation}>
           <TitleText title='Resonant Coherent Breathing' />
           <BodyText text={placeholder} />
         </Card>
-        <Card style={styles.card}>
+        <Card
+          style={styles.card}
+          exercise='RapidBreathing'
+          navigation={navigation}>
           <TitleText title='Tummo Style' />
           <BodyText text={placeholder} />
         </Card>
@@ -92,9 +92,9 @@ const styles = StyleSheet.create({
     // flexGrow: 1,
     // // height: '100%',
     // alignSelf: 'center',
-    marginLeft: 10,
+    // marginLeft: 10,
     // marginVertical: 8,
-    paddingTop: 10,
+    paddingVertical: 40,
   },
   card: {
     flex: 1,

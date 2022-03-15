@@ -8,7 +8,7 @@ import RenderDisplayDots from '../../components/DisplayDots';
 import CurrentRound from '../../components/CurrentRound';
 import BoxBreathingAnimation from './BoxBreathingAnimation';
 const BoxBreathing = ({ route, navigation }) => {
-  const { numberOfCycles } = route.params;
+  const { numberOfCycles } = route.params || 4;
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);

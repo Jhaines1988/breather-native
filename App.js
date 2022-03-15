@@ -11,6 +11,7 @@ import Home from './screens/Home';
 import BoxBreathing from './screens/boxBreathing/BoxBreathing';
 import RapidBreathing from './screens/rapidBreathing/RapidBreathing';
 import Reiterate from './screens/reIterateAnimation/reiterate';
+import SelectRounds from './screens/SelectRounds';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -27,19 +28,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen
-          name='Home'
-          component={Home}
-          // options={{ animationEnabled: false }}
-        />
-        <Stack.Screen
-          name='FiveByFive'
-          component={FiveByFive}
-          // options={{ animationEnabled: false }}
-        />
+        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='FiveByFive' component={FiveByFive} />
         <Stack.Screen name='BoxBreathing' component={BoxBreathing} />
         <Stack.Screen name='RapidBreathing' component={RapidBreathing} />
         <Stack.Screen name='Reiterate' component={Reiterate} />
+        <Stack.Screen name='SelectRounds' component={SelectRounds} />
       </Stack.Navigator>
     </NavigationContainer>
   );
