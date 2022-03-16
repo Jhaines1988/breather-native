@@ -7,7 +7,6 @@ import {
   TextInput,
   StyleSheet,
   Platform,
-  ImageBackground,
   ScrollView,
 } from 'react-native';
 
@@ -70,7 +69,7 @@ const Home = ({ navigation }) => {
           <TitleText title='Tummo Style' />
           <BodyText text={placeholder} />
         </Card>
-        <Card style={styles.card}>
+        <Card style={styles.card} exercise='Custom' navigation={navigation}>
           <TitleText title='Custom' />
           <BodyText text={placeholder} />
         </Card>
@@ -89,11 +88,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,.8)',
   },
   scrollExercises: {
-    // flexGrow: 1,
-    // // height: '100%',
-    // alignSelf: 'center',
-    // marginLeft: 10,
-    // marginVertical: 8,
     paddingVertical: 40,
   },
   card: {
@@ -152,11 +146,11 @@ const styles = StyleSheet.create({
   },
   rounds: { bottom: 29 },
 
-  round_items: {
-    fontFamily: 'Lato-Regular',
-    bottom: 100,
-    paddingVertical: 55,
-  },
+  // round_items: {
+  //   fontFamily: 'Lato-Regular',
+  //   bottom: 100,
+  //   paddingVertical: 55,
+  // },
 });
 
 export default Home;

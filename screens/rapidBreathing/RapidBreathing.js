@@ -32,6 +32,9 @@ const RapidBreathing = ({ route, navigation }) => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
         setAnimationEnabled(false);
+        setTimeout(() => {
+          navigation.navigate('Finished');
+        }, 1000);
       }
     };
   }, [cycle]);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
+import { Animated, Easing, View, Text, Button, StyleSheet } from 'react-native';
 
 import roundDots from '../../Helpers/roundDots';
 import RenderStyleAndAnimation from '../../constants/AnimationStyle';
@@ -27,6 +27,10 @@ const BoxBreathing = ({ route, navigation }) => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
         setAnimationEnabled(false);
+
+        setTimeout(() => {
+          navigation.navigate('Finished');
+        }, 1000);
       }
     };
   }, [cycle]);

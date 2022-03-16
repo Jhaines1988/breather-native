@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { useFonts } from '@expo-google-fonts/inter';
 import AppLoading from 'expo-app-loading';
 import React, { useState, useEffect, useRef } from 'react';
@@ -12,6 +12,7 @@ import BoxBreathing from './screens/boxBreathing/BoxBreathing';
 import RapidBreathing from './screens/rapidBreathing/RapidBreathing';
 import Reiterate from './screens/reIterateAnimation/reiterate';
 import SelectRounds from './screens/SelectRounds';
+import Finished from './screens/Finished';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -34,6 +35,13 @@ export default function App() {
         <Stack.Screen name='RapidBreathing' component={RapidBreathing} />
         <Stack.Screen name='Reiterate' component={Reiterate} />
         <Stack.Screen name='SelectRounds' component={SelectRounds} />
+        <Stack.Screen
+          name='Finished'
+          component={Finished}
+          options={{
+            headerBackVisible: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

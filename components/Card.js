@@ -2,12 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const Card = (props) => {
-  // (selectedExercise === 'Box Breathing') {
-  //   navigation.navigate('BoxBreathing', {
-  //     numberOfCycles: numberOfRounds,
   const navigation = props.navigation;
   const onSelectExercise = () => {
-    navigation.navigate('SelectRounds', { exercise: props.exercise });
+    navigation.navigate('SelectRounds', {
+      exercise: props.exercise,
+    });
   };
   return (
     <TouchableOpacity style={styles.touchable} onPress={onSelectExercise}>
