@@ -9,11 +9,10 @@ const RenderDisplayDots = (props) => {
         key={i}
         style={[
           styles.displayDots,
-          { backgroundColor: props.cycle >= i + 1 ? '#7F6C72' : null },
+          { backgroundColor: props.cycle >= i + 1 ? '#FFFFFF' : null },
         ]}></View>
     );
   });
-
   return (
     <View style={{ ...styles.displayDotsContainer, ...props.style }}>
       {dots}
@@ -23,12 +22,13 @@ const RenderDisplayDots = (props) => {
 
 const styles = StyleSheet.create({
   displayDotsContainer: {
+    paddingTop: 270,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    // width: '100%',
   },
   displayDots: {
-    alignSelf: 'center',
     height: 16,
     width: 16,
     marginRight: 4,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderStyle: 'solid',
     borderWidth: 2,
-    borderColor: '#7F6C72',
+    borderColor: '#FFFFFF',
   },
 });
 

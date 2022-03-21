@@ -7,6 +7,8 @@ import {
   Text,
   Platform,
 } from 'react-native';
+
+import { Colors } from '../../constants/Colors';
 import BreathingCircles from '../../components/BreathingCircles';
 import RenderDisplayDots from '../../components/DisplayDots';
 import CurrentRound from '../../components/CurrentRound';
@@ -16,7 +18,7 @@ const FiveByFive = ({ route, navigation }) => {
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
-  const [InnerCircle, outerCircle, smallCircle, BreathingCycle] =
+  const [outerMostCircle, largeInnerCircle, BreathingCycle] =
     FiveByFiveBreathingAnimation();
   useEffect(() => {
     if (!animationEnabled) {
@@ -30,7 +32,10 @@ const FiveByFive = ({ route, navigation }) => {
     return () => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
-        setAnimationEnabled(false);
+        resizeOnFinish();
+        setTimeout(() => {
+          navigation.navigate('Finished');
+        }, 1000);
       }
     };
   }, [cycle]);
@@ -40,42 +45,87 @@ const FiveByFive = ({ route, navigation }) => {
       setAnimationEnabled(false);
     };
   });
-
+  const resizeOnFinish = () => {
+    Animated.parallel([
+      Animated.timing(outerMostCircle, {
+        toValue: 1,
+        duration: 3000,
+        useNativeDriver: true,
+        Easing: Easing.bezier(0.65, 0, 0.25, 1),
+      }),
+      Animated.timing(largeInnerCircle, {
+        toValue: 1,
+        duration: 3000,
+        useNativeDriver: true,
+        Easing: Easing.bezier(0.65, 0, 0.35, 1),
+      }),
+    ]).start(({ finished }) => {
+      setAnimationEnabled(false);
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.screen}>
         <BreathingCircles
-          InnerCircle={InnerCircle}
-          outerCircle={outerCircle}
-          smallCircle={smallCircle}
+          outerMostCircle={outerMostCircle}
+          largeInnerCircle={largeInnerCircle}
         />
-        <Text style={styles.text}>{displayText}</Text>
-        {numberOfCycles < 10 ? (
-          <RenderDisplayDots
-            style={styles.displayDotsContainer}
-            numberOfCycles={numberOfCycles}
-            cycle={cycle}
-          />
-        ) : null}
-        <CurrentRound cycle={cycle} />
+        <View style={styles.textDotsContainer}>
+          <Text style={styles.text}>{displayText}</Text>
+          {numberOfCycles < 10 ? (
+            <RenderDisplayDots numberOfCycles={numberOfCycles} cycle={cycle} />
+          ) : (
+            <View style={styles.currentRoundContainer}>
+              <Text style={styles.text}>
+                {cycle > 0 && cycle < numberOfCycles + 1 ? cycle : null}
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
   screen: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    backgroundColor: 'black',
+    backgroundColor: Colors.plumDark,
   },
-  displayDotsContainer: {},
+  textDotsContainer: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-  text: { fontSize: 22, color: 'white', position: 'absolute' },
+  text: {
+    fontSize: 36,
+    color: 'white',
+    position: 'absolute',
+    fontFamily: 'Lato-Regular',
+    fontStyle: 'normal',
+    lineHeight: 43,
+    letterSpacing: 3,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+  currentRoundContainer: {
+    paddingTop: 500,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  currentRound: { fontSize: 22, color: 'white' },
 });
 
 export default FiveByFive;
