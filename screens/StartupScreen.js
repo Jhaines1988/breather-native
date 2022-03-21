@@ -4,7 +4,7 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 
-import * as authActions from '../store/actions/auth';
+import * as authActions from '../store/actions/Authenticate';
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();

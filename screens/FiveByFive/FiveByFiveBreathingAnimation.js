@@ -1,27 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Animated, Easing } from 'react-native';
+import { StyleSheet, Animated, Easing, Platform } from 'react-native';
 
 const FiveByFiveBreathingAnimation = (setCycle, setDisplayText, cycle) => {
-  const smallCircle = useRef(new Animated.Value(1)).current;
-  const InnerCircle = useRef(new Animated.Value(1)).current;
-  const outerCircle = useRef(new Animated.Value(1)).current;
-
+  const largeInnerCircle = useRef(new Animated.Value(1)).current;
+  const outerMostCircle = useRef(new Animated.Value(1)).current;
   const BreathingCycle = (setCycle, setDisplayText, cycle) => {
     Animated.parallel([
-      Animated.timing(InnerCircle, {
-        toValue: 2,
+      Animated.timing(outerMostCircle, {
+        toValue: 3,
         duration: 5500,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.25, 1),
       }),
-      Animated.timing(outerCircle, {
-        toValue: 3,
-        duration: 5500,
-        useNativeDriver: true,
-        Easing: Easing.bezier(0.65, 0, 0.35, 1),
-      }),
-      Animated.timing(smallCircle, {
-        toValue: 2,
+      Animated.timing(largeInnerCircle, {
+        toValue: Platform.OS === 'android' ? 2 : 2,
         duration: 5500,
         useNativeDriver: true,
         Easing: Easing.bezier(0.65, 0, 0.35, 1),
@@ -32,20 +24,14 @@ const FiveByFiveBreathingAnimation = (setCycle, setDisplayText, cycle) => {
     });
     function out() {
       Animated.parallel([
-        Animated.timing(InnerCircle, {
-          toValue: 1,
+        Animated.timing(outerMostCircle, {
+          toValue: 0.5,
           duration: 5500,
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
         }),
-        Animated.timing(outerCircle, {
-          toValue: 1,
-          duration: 5500,
-          useNativeDriver: true,
-          Easing: Easing.bezier(0.65, 0, 0.35, 1),
-        }),
-        Animated.timing(smallCircle, {
-          toValue: 1,
+        Animated.timing(largeInnerCircle, {
+          toValue: 0.5,
           duration: 5500,
           useNativeDriver: true,
           Easing: Easing.bezier(0.65, 0, 0.35, 1),
@@ -57,7 +43,7 @@ const FiveByFiveBreathingAnimation = (setCycle, setDisplayText, cycle) => {
     }
   };
 
-  return [InnerCircle, outerCircle, smallCircle, BreathingCycle];
+  return [outerMostCircle, largeInnerCircle, BreathingCycle];
 };
 
 export default FiveByFiveBreathingAnimation;

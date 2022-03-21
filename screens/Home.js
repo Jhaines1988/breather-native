@@ -15,13 +15,13 @@ const image = require('../landscapeSmall.png');
 import Card from '../components/Card';
 import TitleText from '../components/TitleText';
 import BodyText from '../components/BodyText';
+import { HORIZONTAL } from 'react-native/Libraries/Components/ScrollView/ScrollViewContext';
 
 const Home = ({ navigation }) => {
   const [selectedExercise, setSelectedExercise] = useState('5x5');
   const [numberOfRounds, setNumberOfRounds] = useState(2);
 
-  const placeholder =
-    'Here is some Information about this breathing exercise. Here are some instructions about how to perform itHere is some Information about this breathing exercise. Here are some instructions about how to perform itHere is some Information about this breathing exercise. Here are some instructions about how to perform it';
+  const placeholder = 'EXERCISE NAME';
 
   const changeSelectorHandler = function (event) {
     setSelectedExercise(event.target.value);
@@ -46,34 +46,47 @@ const Home = ({ navigation }) => {
   };
   return (
     <View style={styles.form_container}>
-      <View></View>
-      <ScrollView
+      {/* <ScrollView
         bounces={false}
         directionalLockEnabled={true}
-        contentContainerStyle={styles.scrollExercises}>
-        <Card
-          style={styles.card}
-          exercise='BoxBreathing'
-          navigation={navigation}>
-          <TitleText title='Box Breathing' />
-          <BodyText text={placeholder} />
-        </Card>
-        <Card style={styles.card} exercise='FiveByFive' navigation={navigation}>
-          <TitleText title='Resonant Coherent Breathing' />
-          <BodyText text={placeholder} />
-        </Card>
-        <Card
-          style={styles.card}
-          exercise='RapidBreathing'
-          navigation={navigation}>
-          <TitleText title='Tummo Style' />
-          <BodyText text={placeholder} />
-        </Card>
-        <Card style={styles.card} exercise='Custom' navigation={navigation}>
-          <TitleText title='Custom' />
-          <BodyText text={placeholder} />
-        </Card>
-      </ScrollView>
+        contentContainerStyle={styles.scrollExercises}> */}
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        <View style={styles.cardContainer}>
+          <Card
+            style={styles.card}
+            exercise='BoxBreathing'
+            navigation={navigation}>
+            <TitleText title='Box Breathing' />
+            <BodyText text={placeholder} />
+          </Card>
+        </View>
+        <View style={styles.cardContainer}>
+          <Card
+            style={styles.card}
+            exercise='FiveByFive'
+            navigation={navigation}>
+            <TitleText title='Resonant Coherent Breathing' />
+            <BodyText text={placeholder} />
+          </Card>
+        </View>
+
+        <View style={styles.cardContainer}>
+          <Card
+            style={styles.card}
+            exercise='RapidBreathing'
+            navigation={navigation}>
+            <TitleText title='Tummo Style' />
+            <BodyText text={placeholder} />
+          </Card>
+        </View>
+        <View style={styles.cardContainer}>
+          <Card style={styles.card} exercise='Custom' navigation={navigation}>
+            <TitleText title='Custom' />
+            <BodyText text={placeholder} />
+          </Card>
+        </View>
+      </View>
+      {/* </ScrollView> */}
     </View>
   );
 };
@@ -86,12 +99,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,.8)',
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+  },
+  cardContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    width: '80%',
+    height: '80%',
+    flex: 1,
+    backgroundColor: 'white',
   },
   scrollExercises: {
     paddingVertical: 40,
   },
   card: {
     flex: 1,
+    marginVertical: 20,
+    marginHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -10,44 +10,67 @@ import {
 
 const BreathingCircles = (props) => {
   const styles = StyleSheet.create({
-    outerCircle: {
+    outerMostCircle: {
+      height: 300,
+      width: 300,
+      borderColor: 'rgba(158, 150, 248, 0.2)',
+      backgroundColor: 'transparent',
+      borderWidth: 3,
+      borderStyle: 'solid',
+      borderRadius: 250,
+      transform: [{ scale: props.outerMostCircle }],
       justifyContent: 'center',
       alignItems: 'center',
-      height: 100,
-      width: 100,
+      position: 'absolute',
+    },
+    outerCircle1: {
+      height: 270,
+      width: 270,
+      borderRadius: 140,
+      borderColor: 'rgba(158, 150, 248, 0.2)',
+      backgroundColor: 'transparent',
+      borderWidth: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'absolute',
+    },
+    largeInnerCircle: {
+      width: 150,
+      height: 150,
+      backgroundColor: 'rgba(158, 150, 248, 0.1)',
       borderRadius: 100,
-      borderWidth: 100,
-      transform: [{ scale: props.outerCircle }],
-      borderColor: 'rgba(255,255,255,0.25)',
-    },
-    // lime color
-    InnerCircle: {
       justifyContent: 'center',
       alignItems: 'center',
-      height: 50,
-      width: 50,
-      borderRadius: 50,
-      borderWidth: 49,
-      borderColor: 'rgba(0, 244, 0, 0.55)',
       position: 'absolute',
-      transform: [{ scale: props.InnerCircle }],
+      transform: [{ scale: props.largeInnerCircle }],
     },
-    smallCircle: {
-      position: 'absolute',
-      borderColor: 'rgba(255, 255, 255, 0.25)',
-      borderWidth: 24,
-      height: 24,
-      width: 24,
-      borderRadius: 24,
-      transform: [{ scale: props.smallCircle }],
+    mediumInnerCircle: {
+      width: 125,
+      height: 125,
+      backgroundColor: 'rgba(158, 150, 248, 0.1)',
+      borderRadius: 100,
       justifyContent: 'center',
-      alignItems: 'flex-start',
+      alignItems: 'center',
+      position: 'absolute',
+    },
+    innerCircle: {
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      backgroundColor: 'rgba(158, 150, 248, 0.2)',
+      position: 'absolute',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });
   return (
-    <Animated.View style={styles.outerCircle}>
-      <Animated.View style={styles.InnerCircle}>
-        <Animated.View style={styles.smallCircle}></Animated.View>
+    <Animated.View style={styles.outerMostCircle}>
+      <Animated.View style={styles.outerCircle1}>
+        <Animated.View style={styles.largeInnerCircle}>
+          <Animated.View style={styles.mediumInnerCircle}>
+            <Animated.View style={styles.innerCircle}></Animated.View>
+          </Animated.View>
+        </Animated.View>
       </Animated.View>
     </Animated.View>
   );

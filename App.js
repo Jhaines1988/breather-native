@@ -22,9 +22,9 @@ import BoxBreathing from './screens/boxBreathing/BoxBreathing';
 import RapidBreathing from './screens/rapidBreathing/RapidBreathing';
 import Reiterate from './screens/reIterateAnimation/reiterate';
 import SelectRounds from './screens/SelectRounds';
-import Finished from './screens/Finished';
+import Finished from './screens/FinishedScreen';
 // import AuthScreen from './screens/AuthScreen/AuthScreen';
-import authReducer from './store/reducers/auth';
+import authReducer from './store/reducers/Authenticate';
 // import LogOut from './components/LogOut';
 import AppNavigator from './navigation/AppNavigator';
 import { HomeNavigator, AuthNavigator } from './navigation/HomeNavigator';
@@ -41,10 +41,11 @@ export default function App() {
     'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
     'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
     'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
+    'Lato-Black': require('./assets/fonts/Lato-Black.ttf'),
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <View />;
   }
 
   // cange initial route name back to HOME!

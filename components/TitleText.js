@@ -6,7 +6,13 @@ const TitleText = (props) => {
 };
 
 const styles = StyleSheet.create({
-  title: { color: 'white', fontSize: 18, fontWeight: 'bold' },
+  title: {
+    color: 'white',
+    fontSize: 24,
+    letterSpacing: 1,
+    fontFamily: 'Lato-Bold',
+    marginLeft: 30,
+  },
 });
 
 export default TitleText;

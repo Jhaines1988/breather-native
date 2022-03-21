@@ -1,4 +1,4 @@
-import * as authActions from '../store/actions/auth';
+import * as authActions from '../store/actions/Authenticate';
 import { Platform, SafeAreaView, Button, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import {

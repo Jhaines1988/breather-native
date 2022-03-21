@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 export const SET_DID_TRY_AL = 'SET_DID_TRY_AL';
+
+import { TOKEN } from '../../token';
 let timer;
 export const setDidTryAL = () => {
   return { type: SET_DID_TRY_AL };
@@ -18,7 +20,7 @@ export const authenticate = (userId, token, expiryTime) => {
 export const signup = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAUzHu-8GOKvXSprI2-Ft7RKuS1B33h_I4',
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${TOKEN}`,
       {
         method: 'POST',
         headers: {
@@ -62,7 +64,7 @@ export const signup = (email, password) => {
 export const login = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAUzHu-8GOKvXSprI2-Ft7RKuS1B33h_I4',
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${TOKEN}`,
       {
         method: 'POST',
 

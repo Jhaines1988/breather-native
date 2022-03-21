@@ -8,7 +8,9 @@ import FiveByFive from '../screens/FiveByFive/FiveByFive';
 import BoxBreathing from '../screens/boxBreathing/BoxBreathing';
 import SelectRounds from '../screens/SelectRounds';
 import RapidBreathing from '../screens/rapidBreathing/RapidBreathing';
-import Finished from '../screens/Finished';
+import Finished from '../screens/FinishedScreen';
+import Reiterate from '../screens/reIterateAnimation/reiterate';
+import { ExerciseNavigator } from './HomeNavigator';
 const Stack = createNativeStackNavigator();
 const AppNavigator = (props) => {
   const isAuth = useSelector((state) => !!state.auth.token);
@@ -16,9 +18,12 @@ const AppNavigator = (props) => {
 
   return (
     <NavigationContainer>
-      {isAuth && <HomeNavigator />}
+      {isAuth && <ExerciseNavigator />}
       {!isAuth && didTryAutoLogin && <AuthNavigator />}
       {!isAuth && !didTryAutoLogin && <StartupScreen />}
+      {/* <Stack.Navigator>
+        <Stack.Screen name='reiterate' component={Reiterate} />
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 };

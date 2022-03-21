@@ -1,43 +1,67 @@
 import React from 'react';
-import { Platform, SafeAreaView, Button, View } from 'react-native';
-import { useDispatch } from 'react-redux';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
 
+import { useDispatch } from 'react-redux';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import LogOut from '../components/LogOut';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as authActions from '../store/actions/auth';
+import * as authActions from '../store/actions/Authenticate';
 import AuthScreen from '../screens/AuthScreen/AuthScreen';
-
+import TheHomeScreen from '../screens/TheHomeScreen/TheHomeScreen';
 import FiveByFive from '../screens/FiveByFive/FiveByFive';
 import BoxBreathing from '../screens/boxBreathing/BoxBreathing';
 import SelectRounds from '../screens/SelectRounds';
 import RapidBreathing from '../screens/rapidBreathing/RapidBreathing';
-import Finished from '../screens/Finished';
-const HomeDrawerNavigator = createDrawerNavigator();
+import Finished from '../screens/FinishedScreen';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import PickerPlayground from '../screens/reIterateAnimation/PickerPlayground';
+
+const HomeTabNavigator = createBottomTabNavigator();
 export const HomeNavigator = (props) => {
   return (
-    <HomeDrawerNavigator.Navigator drawerContent={LogOut}>
-      <HomeDrawerNavigator.Screen name='Home' component={Home} />
-      <HomeDrawerNavigator.Screen name='Finished' component={Finished} />
-      <HomeDrawerNavigator.Screen
+    <HomeTabNavigator.Navigator
+      drawerContent={LogOut}
+      initialRouteName={'Home'}>
+      <HomeTabNavigator.Screen name='Home' component={TheHomeScreen} />
+      <HomeTabNavigator.Screen name='Profile' component={ProfileScreen} />
+      <HomeTabNavigator.Screen name='PlayGround' component={PickerPlayground} />
+    </HomeTabNavigator.Navigator>
+  );
+};
+const ExerciseStackNavigator = createNativeStackNavigator();
+
+export const ExerciseNavigator = (props) => {
+  return (
+    <ExerciseStackNavigator.Navigator>
+      <HomeTabNavigator.Screen name='HomeScreen' component={HomeNavigator} />
+
+      <ExerciseStackNavigator.Screen
         name='BoxBreathing'
         component={BoxBreathing}
-        options={{ headerShown: false }}
+        // options={{ headerShown: false }}
       />
-      <HomeDrawerNavigator.Screen
+      <ExerciseStackNavigator.Screen
+        name='FiveByFive'
+        component={FiveByFive}
+        // options={{ headerShown: false }}
+      />
+      <ExerciseStackNavigator.Screen
+        name='RapidBreathing'
+        component={RapidBreathing}
+        // options={{ headerShown: false }}
+      />
+      <ExerciseStackNavigator.Screen
         name='SelectRounds'
         component={SelectRounds}
       />
-    </HomeDrawerNavigator.Navigator>
+      <ExerciseStackNavigator.Screen
+        name='Finished'
+        component={Finished}
+        // options={{ headerShown: false }}
+      />
+    </ExerciseStackNavigator.Navigator>
   );
 };
-
 const AuthStackNavigator = createNativeStackNavigator();
 export const AuthNavigator = (props) => {
   return (

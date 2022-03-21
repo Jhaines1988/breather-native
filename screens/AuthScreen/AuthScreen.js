@@ -15,7 +15,7 @@ import LoginInput from '../../components/LoginInput';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useDispatch } from 'react-redux';
 
-import * as authActions from '../../store/actions/auth';
+import * as authActions from '../../store/actions/Authenticate';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 const formReducer = (state, action) => {
@@ -98,24 +98,13 @@ const AuthScreen = ({ route, navigation }) => {
     },
     [dispatchFormState]
   );
-  const signUpHandler = () => {
-    dispatch(authActions.signup());
-  };
-  const userNameInputHandler = (text) => {
-    if (text.trim().length === 0) {
-      setUserNameValid(false);
-    } else {
-      setUserNameValid(true);
-    }
-    setUserName(text);
-  };
 
   return (
     <KeyboardAvoidingView
       behavior='padding'
       keyboardVerticalOffset={50}
       style={styles.screen}>
-      <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}>
+      <LinearGradient colors={['#046E61', '#186C8A']} style={styles.gradient}>
         <AuthCard style={styles.authContainer}>
           <ScrollView>
             <LoginInput
