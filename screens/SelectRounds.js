@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 import MainButton from '../components/MainButton';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Header from '../components/Header';
 
 const SelectRounds = ({ route, navigation }) => {
   const { exercise, title } = route.params;

@@ -1,12 +1,20 @@
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native';
 import Card from '../../components/Card';
 import TitleText from '../../components/TitleText';
-
+import Header from '../../components/Header';
 const TheHomeScreen = (props) => {
   return (
     <View style={styles.screen}>
+      {/* <Header title='exercises' /> */}
       <Text style={styles.text}>Choose An Exercise</Text>
       <Card style={styles.card} exercise='BoxBreathing' title='Box Breathing'>
         <View style={styles.textIconContainer}>

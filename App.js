@@ -43,7 +43,7 @@ export default function App() {
     'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
     'Lato-Black': require('./assets/fonts/Lato-Black.ttf'),
   });
-
+  // update this to expo splash screen !
   if (!fontsLoaded) {
     return <View />;
   }
