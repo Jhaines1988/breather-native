@@ -34,7 +34,10 @@ const FiveByFive = ({ route, navigation }) => {
         setDisplayText('Done');
         resizeOnFinish();
         setTimeout(() => {
-          navigation.navigate('Finished');
+          navigation.navigate('Finished', {
+            numberOfCycles: numberOfCycles,
+            exercise: 'Coherent Breathing',
+          });
         }, 1000);
       }
     };

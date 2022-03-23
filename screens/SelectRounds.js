@@ -88,20 +88,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginBottom: 12,
   },
-  // pickerContainer: {
-  //   flex: 0.14,
-  //   height: '40%',
-  //   width: '100%',
-  //   // backgroundColor: 'pink',
-  //   // borderEndWidth: 20,
-  //   // borderColor: null,
-  //   borderBottomColor: 'transparent',
-  //   borderTopColor: 'transparent',
-  //   borderStyle: null,
-  //   justifyContent: 'flex-start',
-  //   alignItems: 'center',
-  //   overflow: 'hidden',
-  // },
+
   roundsPicker: {
     // flex: 1,
     height: Platform.OS === 'android' ? '10%' : '20%',

@@ -7,16 +7,33 @@ import {
   Text,
   Platform,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../constants/Colors';
 import BreathingCircles from '../../components/BreathingCircles';
 import RenderDisplayDots from '../../components/DisplayDots';
 import CurrentRound from '../../components/CurrentRound';
 import RapidBreathingAnimation from '../../components/RapidBreathingAnimation';
+import * as userActions from '../../store/actions/UserData';
 const RapidBreathing = ({ route, navigation }) => {
   const { numberOfCycles } = route.params;
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
+  const dispatch = useDispatch();
+
+  const sendUserData = async () => {
+    try {
+      await dispatch(userActions.postUserData('Tummo Style', numberOfCycles));
+      setTimeout(() => {
+        navigation.navigate('Finished', {
+          numberOfCycles: numberOfCycles,
+          exercise: 'Tummo Style',
+        });
+      }, 3000);
+    } catch (error) {
+      console.log('ERROR', error);
+    }
+  };
 
   const [outerMostCircle, largeInnerCircle, BreathingCycle] =
     RapidBreathingAnimation();
@@ -33,11 +50,8 @@ const RapidBreathing = ({ route, navigation }) => {
     return () => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
-
+        sendUserData();
         resizeOnFinish();
-        setTimeout(() => {
-          navigation.navigate('Finished');
-        }, 1000);
       }
     };
   }, [cycle]);

@@ -9,27 +9,15 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
 
-import FiveByFive from './screens/FiveByFive/FiveByFive';
-// import Home from './screens/Home';
-import BoxBreathing from './screens/boxBreathing/BoxBreathing';
-import RapidBreathing from './screens/rapidBreathing/RapidBreathing';
-import Reiterate from './screens/reIterateAnimation/reiterate';
-import SelectRounds from './screens/SelectRounds';
-import Finished from './screens/FinishedScreen';
-// import AuthScreen from './screens/AuthScreen/AuthScreen';
 import authReducer from './store/reducers/Authenticate';
+import userDataReducer from './store/reducers/UserData';
 // import LogOut from './components/LogOut';
 import AppNavigator from './navigation/AppNavigator';
 import { HomeNavigator, AuthNavigator } from './navigation/HomeNavigator';
 const rootReducer = combineReducers({
   auth: authReducer,
+  userData: userDataReducer,
 });
 const Stack = createNativeStackNavigator();
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

@@ -24,7 +24,6 @@ const HomeTabNavigator = createBottomTabNavigator();
 export const HomeNavigator = (props) => {
   return (
     <HomeTabNavigator.Navigator
-      // drawerContent={LogOut}
       initialRouteName={'Home'}
       screenOptions={{ headerShown: false }}>
       <HomeTabNavigator.Screen
@@ -55,7 +54,9 @@ const ExerciseStackNavigator = createNativeStackNavigator();
 
 export const ExerciseNavigator = (props) => {
   return (
-    <ExerciseStackNavigator.Navigator screenOptions={{ headerShown: false }}>
+    <ExerciseStackNavigator.Navigator
+      initialRouteName='HomeScreen'
+      screenOptions={{ headerShown: false }}>
       <HomeTabNavigator.Screen name='HomeScreen' component={HomeNavigator} />
 
       <ExerciseStackNavigator.Screen

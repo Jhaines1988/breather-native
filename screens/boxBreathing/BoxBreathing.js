@@ -29,7 +29,10 @@ const BoxBreathing = ({ route, navigation }) => {
         resizeOnFinish();
 
         setTimeout(() => {
-          navigation.navigate('Finished');
+          navigation.navigate('Finished', {
+            numberOfCycles: numberOfCycles,
+            exercise: 'Box Breathing',
+          });
         }, 1000);
       }
     };

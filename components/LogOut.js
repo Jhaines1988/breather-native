@@ -13,7 +13,7 @@ const LogOut = (props) => {
   return (
     <View style={{ flex: 1, paddingTop: 20 }}>
       <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-        <DrawerItemList {...props} />
+        {/* <DrawerItemList {...props} /> */}
         <Button
           title='Logout'
           color='#888'
