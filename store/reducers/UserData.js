@@ -21,23 +21,22 @@ export default (state = initialState, action) => {
         return acc;
       }, 0);
 
-      console.log(total, 'TOTAL ROUNDS ');
+      // console.log(total, 'TOTAL ROUNDS ');
       return { exerciseData: action.data, totalRounds: action.total };
 
     case POST_USER_DATA:
       const newExerciseSession = new ExerciseData(
-        action.data.id,
         action.data.userId,
         action.data.exercise,
         action.data.rounds,
         action.data.date,
-        action.data.previousRounds
+        action.data.totalRounds
       );
 
       return {
         ...state,
         exerciseData: state.exerciseData.concat([newExerciseSession]),
-        totalRounds: total,
+        totalRounds: action.newTotal,
       };
   }
   return state;

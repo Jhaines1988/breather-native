@@ -3,6 +3,7 @@ import { AUTHENTICATE, LOGOUT, SET_DID_TRY_AL } from '../actions/Authenticate';
 const initialState = {
   token: null,
   userId: null,
+
   didTryAutoLogin: false,
 };
 

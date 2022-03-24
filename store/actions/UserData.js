@@ -1,15 +1,22 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createSlice, nanoid } from '@reduxjs/toolkit';
-export const GET_USER_DATA = 'GET_USER_DATA';
-
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  addDoc,
+  collection,
+  query,
+  where,
+} from 'firebase/firestore';
+import { db } from '../../firebase';
 import ExerciseData from '../../models/User';
-export const POST_USER_DATA = 'POST_USER_DATA';
-
-export const POPULATE_ALL_USER_DATA = 'POPULATE_ALL_USER_DATA';
 import { BASEURL } from '../../token';
-// export const getUserData = (userId, token) => {
-//   return { type: GET_USER_DATA, userData: id };
-// };
+
+export const GET_USER_DATA = 'GET_USER_DATA';
+export const POST_USER_DATA = 'POST_USER_DATA';
+export const POPULATE_ALL_USER_DATA = 'POPULATE_ALL_USER_DATA';
 
 export const populateAllUserData = () => {
   return async (dispatch, getState) => {
@@ -23,7 +30,7 @@ export const populateAllUserData = () => {
 
       const resData = await response.json();
 
-      console.log('START', resData, 'ALL USER exerciseData');
+      // console.log('START', resData, 'ALL USER exerciseData');
       let test = [];
       let testObj = {};
       const userData = [];
@@ -87,11 +94,11 @@ export const fetchUserData = (exercise) => {
       }
     );
 
-    console.log(
-      'EXERCISESPECICIF',
-      exerciseSpecificData,
-      getState().userData.exerciseData
-    );
+    // console.log(
+    //   'EXERCISESPECICIF',
+    //   exerciseSpecificData,
+    //   getState().userData.exerciseData
+    // );
 
     try {
       const response = await fetch(
@@ -103,7 +110,7 @@ export const fetchUserData = (exercise) => {
       }
 
       const resData = await response.json();
-      console.log(resData, ' IN FETCH ');
+      // console.log(resData, ' IN FETCH ');
       const userData = [];
       let newTotal = 0;
       for (const key in resData) {
@@ -121,7 +128,7 @@ export const fetchUserData = (exercise) => {
         );
       }
 
-      console.log(newTotal, '+++');
+      // console.log(newTotal, '+++');
       // console.log('USERDDATA ARRAY', userData);
       dispatch({
         type: GET_USER_DATA,
@@ -135,6 +142,59 @@ export const fetchUserData = (exercise) => {
 };
 
 export const postUserData = (exercise, rounds) => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+
+    console.log(getState().userData.totalRounds, '+++++++');
+    // const docRef = doc(db, 'user s', `${userId}`, exercise);
+
+    // const docSnap = await getDoc(docRef);
+
+    // if (docSnap.exists()) {
+    //   console.log('DOC DATA', docSnap.data());
+    // } else {
+    //   console.log('no such doc');
+    // }
+    const q = query(
+      collection(db, 'users', userId, exercise),
+      where('exercise', '==', exercise)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    let roundsCount = 0;
+    querySnapshot.forEach((doc) => {
+      roundsCount += doc.data().rounds;
+      console.log(doc.id, ' => ', doc.data());
+    });
+    const date = new Date().toISOString();
+    // const postData = await setDoc(
+    //   doc(db, 'users', userId, exercise, 'exerciseData'),
+    //   { userId, exercise, rounds, date, previousRounds: 0 }
+    // );
+
+    const postData = await addDoc(collection(db, 'users', userId, exercise), {
+      userId,
+      exercise,
+      rounds,
+      date,
+      totalRounds: roundsCount + rounds,
+    });
+
+    dispatch({
+      type: POST_USER_DATA,
+      data: {
+        userId: userId,
+        exercise: exercise,
+        rounds: rounds,
+        date: date,
+        totalRounds: roundsCount + rounds,
+      },
+      newTotal: roundsCount + rounds,
+    });
+  };
+};
+const postUserData1 = (exercise, rounds) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const token = getState().auth.token;

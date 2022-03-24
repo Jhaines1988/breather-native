@@ -44,15 +44,20 @@ const AuthScreen = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
+
   const dispatch = useDispatch();
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       email: '',
       password: '',
+      verifypassword: '',
+      username: '',
     },
     inputValidities: {
       email: false,
       password: false,
+      verifypassword: false,
+      username: false,
     },
     formIsValid: false,
   });
@@ -63,11 +68,25 @@ const AuthScreen = ({ route, navigation }) => {
     }
   }, [error]);
   const authHandler = async () => {
+    if (
+      isSignup &&
+      formState.inputValues.password !== formState.inputValues.verifypassword
+    ) {
+      try {
+        throw new Error('passwords must match');
+      } catch (error) {
+        setError(error.message);
+        setIsLoading(false);
+        return;
+      }
+    }
     let action;
     if (isSignup) {
       action = authActions.signup(
         formState.inputValues.email,
-        formState.inputValues.password
+        formState.inputValues.password,
+        formState.inputValues.verifypassword,
+        formState.inputValues.username
       );
     } else {
       action = authActions.login(
@@ -79,7 +98,6 @@ const AuthScreen = ({ route, navigation }) => {
     setIsLoading(true);
     try {
       await dispatch(action);
-      // navigation.navigate('Home');
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
@@ -129,6 +147,35 @@ const AuthScreen = ({ route, navigation }) => {
               onInputChange={inputChangeHandler}
               initialValue=''
             />
+            {isSignup && (
+              <>
+                <LoginInput
+                  id='verifypassword'
+                  label='Verify Password'
+                  keyboardType='default'
+                  secureTextEntry
+                  required
+                  minLength={5}
+                  autoCapitalize='none'
+                  errorText='Make Sure Passwords Match'
+                  onInputChange={inputChangeHandler}
+                  initialValue=''
+                />
+                <LoginInput
+                  id='username'
+                  label='User Name'
+                  keyboardType='default'
+                  secureTextEntry
+                  required
+                  minLength={5}
+                  autoCapitalize='none'
+                  errorText='Please enter a valid password.'
+                  onInputChange={inputChangeHandler}
+                  initialValue=''
+                />
+              </>
+            )}
+
             <View style={styles.buttonContainer}>
               {isLoading ? (
                 <ActivityIndicator size='small' color='#888' />

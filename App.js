@@ -9,7 +9,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+// import { LogBox } from 'react-native';
 import authReducer from './store/reducers/Authenticate';
 import userDataReducer from './store/reducers/UserData';
 // import LogOut from './components/LogOut';
@@ -20,9 +20,9 @@ const rootReducer = combineReducers({
   auth: authReducer,
   userData: userDataReducer,
 });
-const Stack = createNativeStackNavigator();
+
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-import { collection, getDocs } from 'firebase/firestore';
+
 // const testFunc = async () => {
 //   // try {
 //   //   const docRef = await addDoc(collection(db, 'users'), {

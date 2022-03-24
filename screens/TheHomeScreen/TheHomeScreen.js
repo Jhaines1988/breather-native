@@ -19,32 +19,32 @@ const TheHomeScreen = ({ navigation }) => {
   const [error, setError] = useState();
   const dispatch = useDispatch();
 
-  const loadUserData = useCallback(async () => {
-    setError(null);
-    setIsRefreshing(true);
-    try {
-      await dispatch(userActions.populateAllUserData());
-    } catch (error) {
-      setError(error.message);
-    }
+  // const loadUserData = useCallback(async () => {
+  //   setError(null);
+  //   setIsRefreshing(true);
+  //   try {
+  //     await dispatch(userActions.populateAllUserData());
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
 
-    setIsRefreshing(false);
-  }, [dispatch, setIsLoading, setError]);
+  //   setIsRefreshing(false);
+  // }, [dispatch, setIsLoading, setError]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    loadUserData().then(() => {
-      setIsLoading(false);
-    });
-  }, [dispatch, loadUserData]);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   loadUserData().then(() => {
+  //     setIsLoading(false);
+  //   });
+  // }, [dispatch, loadUserData]);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', loadUserData);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', loadUserData);
 
-    return () => {
-      unsubscribe();
-    };
-  }, [loadUserData]);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [loadUserData]);
 
   return (
     <View style={styles.screen}>
