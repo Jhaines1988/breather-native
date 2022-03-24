@@ -8,7 +8,7 @@ import Header from '../components/Header';
 const SelectRounds = ({ route, navigation }) => {
   const { exercise, title } = route.params;
   console.log(exercise, title);
-  const [numberOfRounds, setNumberOfRounds] = useState(5);
+  const [numberOfRounds, setNumberOfRounds] = useState(1);
   const dummyText = `Nam a viverra vivamus magnis velit adipiscing parturient ac per at congue placerat nibh eleifend massa vitae nam integer iaculis montes eleifend consequat ligula parturient libero scelerisque per hac. Eu dictumst et gravida.`;
   const startExerciseHandler = () => {
     navigation.navigate(exercise, { numberOfCycles: numberOfRounds });
@@ -20,6 +20,7 @@ const SelectRounds = ({ route, navigation }) => {
       roundsArray.push(i);
     }
     roundsArray.push('No Limit');
+    roundsArray.unshift(1);
     const items = roundsArray.map((r, i) => {
       return (
         <Picker.Item

@@ -18,7 +18,7 @@ const Finished = ({ route, navigation }) => {
 
   const { numberOfCycles, exercise } = route.params;
 
-  console.log('USERDATA ON FINISH', userData);
+  // console.log('USERDATA ON FINISH', userData);
   // const token = useSelector((state) => state.auth.token);
   // const id = useSelector((state) => state.auth.userId);
 
@@ -26,7 +26,7 @@ const Finished = ({ route, navigation }) => {
     setError(null);
     setIsRefreshing(true);
     try {
-      await dispatch(userActions.fetchUserData());
+      await dispatch(userActions.fetchUserData(exercise));
     } catch (error) {
       setError(error.message);
     }
@@ -51,32 +51,10 @@ const Finished = ({ route, navigation }) => {
 
   const homeClickHandler = async () => {
     navigation.navigate('HomeScreen', { screen: 'Home' });
-
-    // console.log(token);
-    // // return async (dispatch, getState) => {
-
-    // // };
-    // const response = await fetch(
-    //   `${BASEURL}/userExerciseData/${id}/${exercise}.json?auth=${token}`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       exercise: exercise,
-    //       rounds: numberOfCycles,
-    //       user: 'testUser5',
-    //       date: new Date(),
-    //     }),
-    //   }
-    // );
-    // const responseData = await response.json();
-    // console.log(responseData);
   };
 
   const profileClickHandler = async () => {
-    // navigation.navigate('HomeScreen', { screen: 'Profile' });
+    navigation.navigate('HomeScreen', { screen: 'History' });
     // const response = await fetch(
     //   `${BASEURL}/userExerciseData/${id}.json?auth=${token}`
     // );
@@ -98,7 +76,7 @@ const Finished = ({ route, navigation }) => {
         <View style={styles.buttonContainer}>
           <View>
             <MainButton
-              title='Profile'
+              title='History'
               navigation={navigation}
               onPress={profileClickHandler}
             />

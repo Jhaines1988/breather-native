@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import {
   View,
@@ -11,7 +11,41 @@ import {
 import Card from '../../components/Card';
 import TitleText from '../../components/TitleText';
 import Header from '../../components/Header';
-const TheHomeScreen = (props) => {
+import { useSelector, useDispatch } from 'react-redux';
+import * as userActions from '../../store/actions/UserData';
+const TheHomeScreen = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
+  const dispatch = useDispatch();
+
+  const loadUserData = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    try {
+      await dispatch(userActions.populateAllUserData());
+    } catch (error) {
+      setError(error.message);
+    }
+
+    setIsRefreshing(false);
+  }, [dispatch, setIsLoading, setError]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    loadUserData().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadUserData]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', loadUserData);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [loadUserData]);
+
   return (
     <View style={styles.screen}>
       {/* <Header title='exercises' /> */}

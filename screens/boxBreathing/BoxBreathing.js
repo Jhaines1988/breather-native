@@ -7,13 +7,31 @@ import BreathingCircles from '../../components/BreathingCircles';
 import RenderDisplayDots from '../../components/DisplayDots';
 import CurrentRound from '../../components/CurrentRound';
 import BoxBreathingAnimation from './BoxBreathingAnimation';
+import * as userActions from '../../store/actions/UserData';
+import { useDispatch, useSelector } from 'react-redux';
 const BoxBreathing = ({ route, navigation }) => {
   const { numberOfCycles } = route.params || 4;
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
+  const dispatch = useDispatch();
   const [outerMostCircle, largeInnerCircle, BreathingCycle] =
     BoxBreathingAnimation();
+
+  const sendUserData = async () => {
+    try {
+      await dispatch(userActions.postUserData('Box Breathing', numberOfCycles));
+      setTimeout(() => {
+        navigation.navigate('Finished', {
+          numberOfCycles: numberOfCycles,
+          exercise: 'Box Breathing',
+        });
+      }, 3000);
+    } catch (error) {
+      console.log('ERROR', error);
+    }
+  };
+
   useEffect(() => {
     if (!animationEnabled) {
       setAnimationEnabled(true);
@@ -27,13 +45,8 @@ const BoxBreathing = ({ route, navigation }) => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
         resizeOnFinish();
-
-        setTimeout(() => {
-          navigation.navigate('Finished', {
-            numberOfCycles: numberOfCycles,
-            exercise: 'Box Breathing',
-          });
-        }, 1000);
+        sendUserData();
+        resizeOnFinish();
       }
     };
   }, [cycle]);

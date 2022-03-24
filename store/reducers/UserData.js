@@ -1,25 +1,33 @@
-import { GET_USER_DATA, POST_USER_DATA } from '../actions/UserData';
+import {
+  GET_USER_DATA,
+  POST_USER_DATA,
+  POPULATE_ALL_USER_DATA,
+} from '../actions/UserData';
 import ExerciseData from '../../models/User';
 const initialState = {
-  exerciseData: [
-    {
-      date: null,
-      exercise: null,
-      id: null,
-      previousRounds: null,
-      rounds: null,
-    },
-  ],
+  exerciseData: [],
+  totalRounds: 0,
 };
 
 export default (state = initialState, action) => {
+  // console.log('ACTION', action);
   switch (action.type) {
+    case POPULATE_ALL_USER_DATA:
+      return { exerciseData: action.data, totalRounds: action.totalRounds };
+
     case GET_USER_DATA:
-      return { exerciseData: action.data };
+      const total = state.exerciseData.reduce((acc, data) => {
+        acc += data.rounds;
+        return acc;
+      }, 0);
+
+      console.log(total, 'TOTAL ROUNDS ');
+      return { exerciseData: action.data, totalRounds: action.total };
 
     case POST_USER_DATA:
       const newExerciseSession = new ExerciseData(
         action.data.id,
+        action.data.userId,
         action.data.exercise,
         action.data.rounds,
         action.data.date,
@@ -28,7 +36,8 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        exerciseData: state.exerciseData.concat(newExerciseSession),
+        exerciseData: state.exerciseData.concat([newExerciseSession]),
+        totalRounds: total,
       };
   }
   return state;

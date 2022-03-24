@@ -15,7 +15,8 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = (props) => {
   const isAuth = useSelector((state) => !!state.auth.token);
   const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
-
+  const stateSlice = useSelector((state) => state.userData);
+  // console.log("MAIN USE RDATA',", stateSlice);
   return (
     <NavigationContainer>
       {isAuth && <ExerciseNavigator />}

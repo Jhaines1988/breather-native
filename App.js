@@ -13,6 +13,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import authReducer from './store/reducers/Authenticate';
 import userDataReducer from './store/reducers/UserData';
 // import LogOut from './components/LogOut';
+import { authentication, db } from './firebase';
 import AppNavigator from './navigation/AppNavigator';
 import { HomeNavigator, AuthNavigator } from './navigation/HomeNavigator';
 const rootReducer = combineReducers({
@@ -21,9 +22,28 @@ const rootReducer = combineReducers({
 });
 const Stack = createNativeStackNavigator();
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+import { collection, getDocs } from 'firebase/firestore';
+// const testFunc = async () => {
+//   // try {
+//   //   const docRef = await addDoc(collection(db, 'users'), {
+//   //     first: 'Ada',
+//   //     last: 'Lovelace',
+//   //     born: 1815,
+//   //   });
+//   //   console.log('Document written with ID: ', docRef.id);
+//   // } catch (e) {
+//   //   console.error('Error adding document: ', e);
+//   // }
 
+//   const querySnapshot = await getDocs(collection(db, 'users'));
+//   querySnapshot.forEach((doc) => {
+//     console.log(`${doc.id} => ${doc.data().toString()}`);
+//   });
+// };
+
+// testFunc();
 // drawerContent={(props) => <CustomDrawerContent {...props} />}
-
+// testFunc();
 export default function App() {
   let [fontsLoaded] = useFonts({
     'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),

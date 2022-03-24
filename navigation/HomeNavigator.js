@@ -18,7 +18,7 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import PickerPlayground from '../screens/reIterateAnimation/PickerPlayground';
 import { Colors } from '../constants/Colors';
 import Header from '../components/Header';
-
+import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
 import { HeaderBackButton } from '@react-navigation/elements';
 const HomeTabNavigator = createBottomTabNavigator();
 export const HomeNavigator = (props) => {
@@ -47,6 +47,7 @@ export const HomeNavigator = (props) => {
         }}
       />
       <HomeTabNavigator.Screen name='Profile' component={ProfileScreen} />
+      <HomeTabNavigator.Screen name='History' component={HistoryScreen} />
     </HomeTabNavigator.Navigator>
   );
 };

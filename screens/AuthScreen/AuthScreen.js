@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   TextInput,
   Alert,
-  AsyncStorage,
 } from 'react-native';
 import AuthCard from '../../components/AuthCard';
 import LoginInput from '../../components/LoginInput';
