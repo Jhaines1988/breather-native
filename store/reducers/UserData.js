@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
       }, 0);
 
       // console.log(total, 'TOTAL ROUNDS ');
-      return { exerciseData: action.data, totalRounds: action.total };
+      return { exerciseData: action.data, totalRounds: state.totalRounds };
 
     case POST_USER_DATA:
       const newExerciseSession = new ExerciseData(

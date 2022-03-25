@@ -1,16 +1,22 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+
+import { db } from '../../firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import {
-  doc,
   setDoc,
   getDoc,
   getDocs,
   addDoc,
   collection,
+  collectionGroup,
   query,
+  orderBy,
   where,
+  getDocFromCache,
 } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { doc } from 'firebase/firestore';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
+
 import ExerciseData from '../../models/User';
 import { BASEURL } from '../../token';
 
@@ -82,59 +88,116 @@ export const populateAllUserData = () => {
     }
   };
 };
+
+/*querying an entire collection
+ const q = query(collection(db, 'exercises', userId, exercise));
+
+ const querySnapshot = await getDocs(q);
+
+ let roundsCount = 0;
+
+ querySnapshot.forEach((doc) => {
+   console.log('query', doc.data(), doc.id);
+   roundsCount += doc.data().totalRounds;
+ });
+ */
+
 export const fetchUserData = (exercise) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const token = getState().auth.token;
     const totalRounds = getState().userData.totalRounds;
-
-    const exerciseSpecificData = getState().userData.exerciseData.filter(
-      (data) => {
-        return data.exercise === exercise;
-      }
-    );
-
-    // console.log(
-    //   'EXERCISESPECICIF',
-    //   exerciseSpecificData,
-    //   getState().userData.exerciseData
-    // );
-
+    const auth = getAuth();
+    const testing = auth.currentUser;
+    var currentDate = new Date();
+    var date1 = currentDate.getDate();
+    var month = currentDate.getMonth();
+    var year = currentDate.getFullYear();
+    const date2 = '3.26.2022';
+    const date = month + 1 + '.' + date1 + '.' + year;
     try {
-      const response = await fetch(
-        `${BASEURL}/userExerciseData/${userId}/${exercise}.json?auth=${token}`
+      const exercisesRef = collection(db, 'exercises', userId, exercise);
+
+      const k = query(exercisesRef, orderBy('date', 'desc'));
+      const exSnap = await getDocs(k);
+      exSnap.forEach((doc) => {
+        // console.log('EXSNAM +', doc.data());
+      });
+
+      const q = query(
+        collection(db, 'exercises', userId, exercise),
+        orderBy('date', 'desc')
       );
 
-      if (!response.ok) {
-        throw new Error('Something Went Wrong!');
-      }
-
-      const resData = await response.json();
-      // console.log(resData, ' IN FETCH ');
-      const userData = [];
-      let newTotal = 0;
-      for (const key in resData) {
-        // console.log('RESDATA', resData[key].id);
-        newTotal += resData[key].rounds;
-        userData.push(
-          new ExerciseData(
-            key,
-            resData[key].userId,
-            resData[key].exercise,
-            resData[key].rounds,
-            resData[key].date,
-            resData[key].previousRounds + resData[key].rounds || 0
-          )
-        );
-      }
-
-      // console.log(newTotal, '+++');
-      // console.log('USERDDATA ARRAY', userData);
-      dispatch({
-        type: GET_USER_DATA,
-        data: userData,
-        total: newTotal,
+      const querySnapshot = await getDocs(q);
+      const queries = [];
+      querySnapshot.forEach((doc) => {
+        // console.log('query', doc.data(), doc.id);
+        queries.push(doc.data());
       });
+
+      console.log('QUERIES', queries);
+      // const q = query(
+      //   collection(db, 'users', userId, exercise),
+      //   where('exercise', '==', exercise)
+      // );
+      // const querySnapshot = await getDocs(q);
+
+      // querySnapshot.forEach((doc) => {
+      //   console.log('QSNAP =>', doc.data());
+      // });
+      // const usersCollectionRef = collection(db, 'users', userId);
+
+      // const docRef = doc(usersCollectionRef, exercise);
+
+      // const docSnap = await getDoc(docRef);
+
+      // const user = query(
+      //   collection(db, 'users', userId, 'Box Breathing'),
+      //   orderBy('date', 'desc')
+      // );
+      // const docSnap = await getDocs(user);
+      // const snap = [];
+      // docSnap.forEach((doc) => {
+      //   // console.log('DOCSNAP', doc.data());
+      //   snap.push(doc.data());
+      // });
+      // console.log('SNA', snap);
+      // const user2 = doc(db, 'users', userId);
+
+      // const docSnap2 = await getDoc(user2);
+
+      // if (docSnap2.exists()) {
+      //   console.log('GET DOC TEST', docSnap2.id, docSnap2.data());
+
+      // }
+
+      // let data = await getDoc(
+      //   collection(db, 'exercises', 'AKXZH1vUUmEjrFThN3ZA')
+      // );
+
+      const userData = [];
+
+      // for (const key in querySnapshot) {
+      //   // console.log('RESDATA', resData[key].id);
+
+      //   userData.push(
+      //     new ExerciseData(
+      //       querySnapshot[key].userId,
+      //       querySnapshot[key].exercise,
+      //       querySnapshot[key].rounds,
+      //       querySnapshot[key].date,
+      //       querySnapshot[key].totalRounds
+      //     )
+      //   );
+      // }
+
+      // console.log(userData, 'HERHERHER');
+      // dispatch({
+      //   type: GET_USER_DATA,
+      //   data: userData,
+      //   // total: newTotal,
+      // });
     } catch (error) {
       console.log('error', error);
     }
@@ -144,43 +207,32 @@ export const fetchUserData = (exercise) => {
 export const postUserData = (exercise, rounds) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
+    var currentDate = new Date();
+    var date1 = currentDate.getDate();
+    var month = currentDate.getMonth();
+    var year = currentDate.getFullYear();
+    const date2 = '3.26.2022';
+    const date = month + 1 + '.' + date1 + '.' + year;
+    let storageDate = new Date().toISOString();
+    const docRef = doc(db, 'exercises', userId, exercise, date);
 
-    console.log(getState().userData.totalRounds, '+++++++');
-    // const docRef = doc(db, 'user s', `${userId}`, exercise);
+    const docSnapShot = await getDoc(docRef);
+    let newTotal = 0;
+    if (docSnapShot.exists()) {
+      newTotal += docSnapShot.data().totalRounds;
+    }
 
-    // const docSnap = await getDoc(docRef);
-
-    // if (docSnap.exists()) {
-    //   console.log('DOC DATA', docSnap.data());
-    // } else {
-    //   console.log('no such doc');
-    // }
-    const q = query(
-      collection(db, 'users', userId, exercise),
-      where('exercise', '==', exercise)
+    // date may not be neccesary to save again, but leaving in for dev purposes now.
+    const postData = await setDoc(
+      doc(db, 'exercises', userId, exercise, date),
+      {
+        date: storageDate,
+        rounds,
+        totalRounds: newTotal + rounds,
+      },
+      { merge: true }
     );
-
-    const querySnapshot = await getDocs(q);
-
-    let roundsCount = 0;
-    querySnapshot.forEach((doc) => {
-      roundsCount += doc.data().rounds;
-      console.log(doc.id, ' => ', doc.data());
-    });
-    const date = new Date().toISOString();
-    // const postData = await setDoc(
-    //   doc(db, 'users', userId, exercise, 'exerciseData'),
-    //   { userId, exercise, rounds, date, previousRounds: 0 }
-    // );
-
-    const postData = await addDoc(collection(db, 'users', userId, exercise), {
-      userId,
-      exercise,
-      rounds,
-      date,
-      totalRounds: roundsCount + rounds,
-    });
-
+    // this much redux may not be needed. Refactor after fetching is sorted.
     dispatch({
       type: POST_USER_DATA,
       data: {
@@ -188,83 +240,9 @@ export const postUserData = (exercise, rounds) => {
         exercise: exercise,
         rounds: rounds,
         date: date,
-        totalRounds: roundsCount + rounds,
+        totalRounds: newTotal + rounds,
       },
-      newTotal: roundsCount + rounds,
+      newTotal: newTotal + rounds,
     });
   };
 };
-const postUserData1 = (exercise, rounds) => {
-  return async (dispatch, getState) => {
-    const userId = getState().auth.userId;
-    const token = getState().auth.token;
-
-    // const exerciseSpecificData = getState().userData.exerciseData.filter(
-    //   (data) => {
-    //     return data.exercise === exercise;
-    //   }
-    // );
-
-    // console.log('EXERCISESPECICIF', exerciseSpecificData, exercise);
-    // const total = getState().userData.exerciseData.reduce((acc, data) => {
-    //   acc += data.rounds;
-    //   return acc;
-    // }, 0);
-
-    // console.log(total, 'PEANUT');
-    try {
-      //   const date = new Date().toISOString();
-      const date = new Date().toISOString();
-      const response = await fetch(
-        `${BASEURL}/userExerciseData/${userId}/${exercise}.json?auth=${token}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            // id: nanoid(),
-            userId: userId,
-            exercise: exercise,
-            rounds: rounds,
-            date: date,
-            previousRounds: rounds,
-          }),
-        }
-      );
-      if (!response.ok) {
-        throw new Error('Something went wrong!');
-      }
-
-      const resData = await response.json();
-
-      // console.log(resData, ' DATA FROM POST');
-      dispatch({
-        type: POST_USER_DATA,
-        data: {
-          id: resData.name,
-          userId: userId,
-          exercise: exercise,
-          rounds: rounds,
-          date: date,
-          previousRounds: rounds,
-        },
-      });
-    } catch (error) {
-      console.log('ERROR POSTING EXERCISE', error);
-    }
-  };
-};
-// // return async (dispatch, getState) => {
-
-// // };
-
-// const responseData = await response.json();
-// console.log(responseData);
-// const response = await fetch(
-//   `${BASEURL}/userExerciseData/${id}/${exercise}.json?auth=${token}`
-// );
-
-// const resdata = await response.json();
-
-// console.log('RESPONSE DATA', resdata);

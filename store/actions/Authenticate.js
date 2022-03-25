@@ -36,7 +36,7 @@ export const signup = (email, password, username) => {
       );
 
       let user = createdUser.user;
-      console.log('USER', user.get);
+      console.log('USER', user);
       let setUsername = await setDoc(doc(db, 'users', user.uid), {
         username: username,
       });
