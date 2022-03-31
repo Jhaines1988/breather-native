@@ -10,6 +10,7 @@ import ReduxThunk from 'redux-thunk';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { LogBox } from 'react-native';
+import { onAuthStateChange } from './firebase';
 import authReducer from './store/reducers/Authenticate';
 import userDataReducer from './store/reducers/UserData';
 // import LogOut from './components/LogOut';

@@ -44,7 +44,7 @@ const AuthScreen = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
-
+  const [retypedPassword, setRetypedPassword] = useState('');
   const dispatch = useDispatch();
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -67,19 +67,8 @@ const AuthScreen = ({ route, navigation }) => {
       Alert.alert('An Error Occurred!', error, [{ text: 'Okay' }]);
     }
   }, [error]);
+
   const authHandler = async () => {
-    if (
-      isSignup &&
-      formState.inputValues.password !== formState.inputValues.verifypassword
-    ) {
-      try {
-        throw new Error('passwords must match');
-      } catch (error) {
-        setError(error.message);
-        setIsLoading(false);
-        return;
-      }
-    }
     let action;
     if (isSignup) {
       action = authActions.signup(
@@ -157,7 +146,7 @@ const AuthScreen = ({ route, navigation }) => {
                   required
                   minLength={5}
                   autoCapitalize='none'
-                  errorText='Make Sure Passwords Match'
+                  errorText='Please enter a valid password'
                   onInputChange={inputChangeHandler}
                   initialValue=''
                 />
@@ -167,9 +156,9 @@ const AuthScreen = ({ route, navigation }) => {
                   keyboardType='default'
                   secureTextEntry
                   required
-                  minLength={5}
+                  // minLength={5}
                   autoCapitalize='none'
-                  errorText='Please enter a valid password.'
+                  errorText='Something went wrong with that userName'
                   onInputChange={inputChangeHandler}
                   initialValue=''
                 />

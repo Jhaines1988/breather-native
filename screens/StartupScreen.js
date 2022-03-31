@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
-
+import { getAuth } from 'firebase/auth';
+import { auth } from '../firebase';
 import * as authActions from '../store/actions/Authenticate';
 
 const StartupScreen = (props) => {
@@ -11,23 +12,21 @@ const StartupScreen = (props) => {
 
   useEffect(() => {
     const tryLogin = async () => {
-      const userData = await AsyncStorage.getItem('userData');
-      if (!userData) {
+      const user = auth.currentUser;
+      console.log('USER', user);
+
+      if (!user) {
         dispatch(authActions.setDidTryAL());
         return;
       }
-      const transformedData = JSON.parse(userData);
-      const { token, userId, expiryDate } = transformedData;
-      const expirationDate = new Date(expiryDate);
+      let token = user.stsTokenManager.accessToken;
+      let userId = user.uid;
 
-      if (expirationDate <= new Date() || !token || !userId) {
+      if (!token || !userId) {
         dispatch(authActions.setDidTryAL());
         return;
       }
-
-      const expirationTime = expirationDate.getTime() - new Date().getTime();
-
-      dispatch(authActions.authenticate(userId, token, expirationTime));
+      dispatch(authActions.authenticate(userId, token));
     };
 
     tryLogin();

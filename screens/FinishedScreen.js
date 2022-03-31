@@ -55,11 +55,6 @@ const Finished = ({ route, navigation }) => {
 
   const profileClickHandler = async () => {
     navigation.navigate('HomeScreen', { screen: 'History' });
-    // const response = await fetch(
-    //   `${BASEURL}/userExerciseData/${id}.json?auth=${token}`
-    // );
-    // const resdata = await response.json();
-    // console.log('RESPONSE DATA', resdata);
   };
   const dummyText = `Nam a viverra vivamus magnis velit adipiscing parturient ac per at congue placerat nibh eleifend massa vitae nam integer iaculis montes eleifend consequat ligula part`;
   const title = 'Finished!';
