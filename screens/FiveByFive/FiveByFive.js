@@ -7,19 +7,37 @@ import {
   Text,
   Platform,
 } from 'react-native';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../constants/Colors';
 import BreathingCircles from '../../components/BreathingCircles';
 import RenderDisplayDots from '../../components/DisplayDots';
 import CurrentRound from '../../components/CurrentRound';
 import FiveByFiveBreathingAnimation from './FiveByFiveBreathingAnimation';
+import * as userActions from '../../store/actions/UserData';
 const FiveByFive = ({ route, navigation }) => {
   const { numberOfCycles } = route.params;
   const [cycle, setCycle] = useState(0);
   const [displayText, setDisplayText] = useState('In');
   const [animationEnabled, setAnimationEnabled] = useState(false);
+  const dispatch = useDispatch();
   const [outerMostCircle, largeInnerCircle, BreathingCycle] =
     FiveByFiveBreathingAnimation();
+
+  const sendUserData = async () => {
+    try {
+      await dispatch(
+        userActions.postUserData('Coherent Breathing', numberOfCycles)
+      );
+      setTimeout(() => {
+        navigation.navigate('Finished', {
+          numberOfCycles: numberOfCycles,
+          exercise: 'Coherent Breathing',
+        });
+      }, 3000);
+    } catch (error) {
+      console.log('ERROR', error);
+    }
+  };
   useEffect(() => {
     if (!animationEnabled) {
       setAnimationEnabled(true);
@@ -32,10 +50,8 @@ const FiveByFive = ({ route, navigation }) => {
     return () => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
+        sendUserData();
         resizeOnFinish();
-        setTimeout(() => {
-          navigation.navigate('Finished');
-        }, 1000);
       }
     };
   }, [cycle]);

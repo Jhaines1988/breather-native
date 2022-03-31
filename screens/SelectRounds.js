@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Button, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 import MainButton from '../components/MainButton';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Header from '../components/Header';
 
 const SelectRounds = ({ route, navigation }) => {
   const { exercise, title } = route.params;
   console.log(exercise, title);
-  const [numberOfRounds, setNumberOfRounds] = useState(5);
+  const [numberOfRounds, setNumberOfRounds] = useState(1);
   const dummyText = `Nam a viverra vivamus magnis velit adipiscing parturient ac per at congue placerat nibh eleifend massa vitae nam integer iaculis montes eleifend consequat ligula parturient libero scelerisque per hac. Eu dictumst et gravida.`;
   const startExerciseHandler = () => {
     navigation.navigate(exercise, { numberOfCycles: numberOfRounds });
@@ -20,6 +20,7 @@ const SelectRounds = ({ route, navigation }) => {
       roundsArray.push(i);
     }
     roundsArray.push('No Limit');
+    roundsArray.unshift(1);
     const items = roundsArray.map((r, i) => {
       return (
         <Picker.Item
@@ -88,20 +89,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginBottom: 12,
   },
-  // pickerContainer: {
-  //   flex: 0.14,
-  //   height: '40%',
-  //   width: '100%',
-  //   // backgroundColor: 'pink',
-  //   // borderEndWidth: 20,
-  //   // borderColor: null,
-  //   borderBottomColor: 'transparent',
-  //   borderTopColor: 'transparent',
-  //   borderStyle: null,
-  //   justifyContent: 'flex-start',
-  //   alignItems: 'center',
-  //   overflow: 'hidden',
-  // },
+
   roundsPicker: {
     // flex: 1,
     height: Platform.OS === 'android' ? '10%' : '20%',
