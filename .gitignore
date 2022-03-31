@@ -13,6 +13,7 @@ todo.txt
 # macOS
 .DS_Store
 
-/screens/ProfileScreen
 
+firebase.js
 token.js
+oldSnippits.js

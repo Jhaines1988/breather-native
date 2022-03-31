@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from '../constants/Colors';
+import { useNavigation } from '@react-navigation/native';
 const MainButton = (props) => {
+  const navigation = props.navigation;
   return (
     <TouchableOpacity onPress={props.onPress} style={styles.buttonContainer}>
       <View style={styles.button}>
@@ -12,7 +14,11 @@ const MainButton = (props) => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: { width: '100%', justifyContent: 'center' },
+  buttonContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    // alignItems: 'center',
+  },
   button: {
     backgroundColor: Colors.buttonBackground,
     paddingVertical: 12,
