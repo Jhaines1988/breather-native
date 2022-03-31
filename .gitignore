@@ -14,5 +14,5 @@ todo.txt
 .DS_Store
 
 /screens/ProfileScreen
-
+firebase.js
 token.js
