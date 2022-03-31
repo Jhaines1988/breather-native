@@ -103,6 +103,7 @@ export const ExerciseNavigator = (props) => {
         component={SelectRounds}
         options={{
           title: null,
+          animation: 'none',
           // title: Platform.OS === 'android' ? 'Cancel' : null,
           headerShown: true,
           headerStyle: { backgroundColor: Colors.plumDark },

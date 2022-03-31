@@ -28,7 +28,7 @@ const AppNavigator = (props) => {
     };
   }, []);
 
-  const onAuthStateChange = function (callback) {
+  const onAuthStateChange = async function (callback) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         callback({ loggedIn: true });
@@ -40,9 +40,9 @@ const AppNavigator = (props) => {
 
   if (!currentUser.loggedIn) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size='large' color='#888' />
-      </View>
+      <NavigationContainer>
+        <AuthNavigator />
+      </NavigationContainer>
     );
   }
 

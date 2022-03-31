@@ -156,6 +156,7 @@ const getData = async function (userId, ex) {
     objResult.push(obj);
     const docID = new Date(doc.data().date);
     datesArray.push(doc.data().date);
+    console.log(' HEY THIS TOO');
   });
 
   return [objResult, lifeTimeTotal, datesArray];

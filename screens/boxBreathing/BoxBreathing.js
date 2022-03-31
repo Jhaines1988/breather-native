@@ -21,12 +21,6 @@ const BoxBreathing = ({ route, navigation }) => {
   const sendUserData = async () => {
     try {
       await dispatch(userActions.postUserData('Box Breathing', numberOfCycles));
-      setTimeout(() => {
-        navigation.navigate('Finished', {
-          numberOfCycles: numberOfCycles,
-          exercise: 'Box Breathing',
-        });
-      }, 3000);
     } catch (error) {
       console.log('ERROR', error);
     }
@@ -44,7 +38,6 @@ const BoxBreathing = ({ route, navigation }) => {
     return () => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
-        resizeOnFinish();
         sendUserData();
         resizeOnFinish();
       }
@@ -72,6 +65,10 @@ const BoxBreathing = ({ route, navigation }) => {
       }),
     ]).start(({ finished }) => {
       setAnimationEnabled(false);
+      navigation.navigate('Finished', {
+        numberOfCycles: numberOfCycles,
+        exercise: 'Box Breathing',
+      });
     });
   };
   return (

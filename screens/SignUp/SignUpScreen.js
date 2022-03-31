@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { authentication, db } from '../../firebase';
 
+// move this to a firebase util file or put it in the firebase config.
 const SignUp = ({ navigation }) => {};
 
 const auth = getAuth();

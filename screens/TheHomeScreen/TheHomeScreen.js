@@ -19,6 +19,7 @@ const TheHomeScreen = ({ navigation }) => {
   const [error, setError] = useState();
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const userExercises = useSelector((state) => state.userData);
 
   const loadUserData = useCallback(async () => {
     setError(null);
@@ -34,19 +35,19 @@ const TheHomeScreen = ({ navigation }) => {
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    setIsLoading(true);
-    loadUserData().then(() => {
-      setIsLoading(false);
-    });
-  }, [dispatch, loadUserData]);
-
-  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', loadUserData);
 
     return () => {
       unsubscribe();
     };
   }, [loadUserData]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    loadUserData().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadUserData]);
 
   return (
     <View style={styles.screen}>
