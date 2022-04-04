@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, Button, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-import MainButton from '../components/MainButton';
-import Header from '../components/Header';
+import MainButton from '../../components/MainButton';
 
 const SelectRounds = ({ route, navigation }) => {
   const { exercise, title } = route.params;
@@ -25,7 +24,6 @@ const SelectRounds = ({ route, navigation }) => {
       return (
         <Picker.Item
           key={i}
-          // style={styles.round_items}
           label={`${roundsArray[i]}`}
           value={roundsArray[i]}></Picker.Item>
       );
@@ -91,14 +89,12 @@ const styles = StyleSheet.create({
   },
 
   roundsPicker: {
-    // flex: 1,
     height: Platform.OS === 'android' ? '10%' : '20%',
     width: '100%',
     backgroundColor:
       Platform.OS === 'android' ? 'rgba(158, 150, 248, 0.2)' : null,
     color: 'white',
     justifyContent: 'space-between',
-    // alignItems: 'flex-start',
     alignContent: 'flex-start',
     fontFamily: 'Lato-Bold',
     fontSize: 23,
@@ -133,10 +129,3 @@ const styles = StyleSheet.create({
 });
 
 export default SelectRounds;
-
-/*
-Nam a viverra vivamus magnis velit adipiscing parturient ac per at congue placerat nibh
-eleifend massa vitae nam integer iaculis montes eleifend consequat ligula parturient libero
-scelerisque per hac. Eu dictumst et gravida.
-
-*/

@@ -15,6 +15,7 @@ export default (state = initialState, action) => {
   // console.log('ACTION', action);
   switch (action.type) {
     case POPULATE_ALL_USER_DATA:
+      console.log('AND THIS');
       return {
         ...state,
         'Tummo Style': action.tummo,

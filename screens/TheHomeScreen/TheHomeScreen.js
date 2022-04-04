@@ -1,24 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Card from '../../components/Card';
 import TitleText from '../../components/TitleText';
-import Header from '../../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../store/actions/UserData';
+import Header from '../../components/Header';
 const TheHomeScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const userExercises = useSelector((state) => state.userData);
 
   const loadUserData = useCallback(async () => {
     setError(null);
@@ -34,19 +28,19 @@ const TheHomeScreen = ({ navigation }) => {
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    setIsLoading(true);
-    loadUserData().then(() => {
-      setIsLoading(false);
-    });
-  }, [dispatch, loadUserData]);
-
-  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', loadUserData);
 
     return () => {
       unsubscribe();
     };
   }, [loadUserData]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    loadUserData().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadUserData]);
 
   return (
     <View style={styles.screen}>
@@ -112,7 +106,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    // height: '40%',
     borderRadius: 8,
     marginBottom: 24,
     width: '90%',
@@ -120,8 +113,6 @@ const styles = StyleSheet.create({
     color: 'black',
     backgroundColor: 'rgba(158, 150, 248, 0.2)',
     justifyContent: 'center',
-    // alignItems: 'center',
-    // alignContent: 'center',
   },
   textIconContainer: { flexDirection: 'row', justifyContent: 'space-between' },
   text: {

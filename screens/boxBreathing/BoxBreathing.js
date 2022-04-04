@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Animated, Easing, View, Text, Button, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/Colors';
-import roundDots from '../../Helpers/roundDots';
-import RenderStyleAndAnimation from '../../constants/AnimationStyle';
 import BreathingCircles from '../../components/BreathingCircles';
 import RenderDisplayDots from '../../components/DisplayDots';
-import CurrentRound from '../../components/CurrentRound';
 import BoxBreathingAnimation from './BoxBreathingAnimation';
 import * as userActions from '../../store/actions/UserData';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,12 +18,6 @@ const BoxBreathing = ({ route, navigation }) => {
   const sendUserData = async () => {
     try {
       await dispatch(userActions.postUserData('Box Breathing', numberOfCycles));
-      setTimeout(() => {
-        navigation.navigate('Finished', {
-          numberOfCycles: numberOfCycles,
-          exercise: 'Box Breathing',
-        });
-      }, 3000);
     } catch (error) {
       console.log('ERROR', error);
     }
@@ -44,7 +35,6 @@ const BoxBreathing = ({ route, navigation }) => {
     return () => {
       if (cycle === numberOfCycles - 1) {
         setDisplayText('Done');
-        resizeOnFinish();
         sendUserData();
         resizeOnFinish();
       }
@@ -72,6 +62,10 @@ const BoxBreathing = ({ route, navigation }) => {
       }),
     ]).start(({ finished }) => {
       setAnimationEnabled(false);
+      navigation.navigate('Finished', {
+        numberOfCycles: numberOfCycles,
+        exercise: 'Box Breathing',
+      });
     });
   };
   return (

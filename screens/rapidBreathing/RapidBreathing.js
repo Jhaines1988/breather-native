@@ -24,12 +24,6 @@ const RapidBreathing = ({ route, navigation }) => {
   const sendUserData = async () => {
     try {
       await dispatch(userActions.postUserData('Tummo Style', numberOfCycles));
-      setTimeout(() => {
-        navigation.navigate('Finished', {
-          numberOfCycles: numberOfCycles,
-          exercise: 'Tummo Style',
-        });
-      }, 3000);
     } catch (error) {
       console.log('ERROR', error);
     }
@@ -78,6 +72,10 @@ const RapidBreathing = ({ route, navigation }) => {
       }),
     ]).start(({ finished }) => {
       setAnimationEnabled(false);
+      navigation.navigate('Finished', {
+        numberOfCycles: numberOfCycles,
+        exercise: 'Tummo Style',
+      });
     });
   };
   return (

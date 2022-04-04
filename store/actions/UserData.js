@@ -1,7 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 import { db } from '../../firebase';
-
 import {
   setDoc,
   getDoc,
@@ -14,14 +12,7 @@ import {
   where,
   getDocFromCache,
 } from 'firebase/firestore';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  browserLocalPersistence,
-  setPersistence,
-  Persistence,
-  inMemoryPersistence,
-} from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
 
 export const GET_USER_DATA = 'GET_USER_DATA';
@@ -156,6 +147,7 @@ const getData = async function (userId, ex) {
     objResult.push(obj);
     const docID = new Date(doc.data().date);
     datesArray.push(doc.data().date);
+    console.log(' HEY THIS TOO');
   });
 
   return [objResult, lifeTimeTotal, datesArray];

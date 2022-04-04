@@ -28,12 +28,6 @@ const FiveByFive = ({ route, navigation }) => {
       await dispatch(
         userActions.postUserData('Coherent Breathing', numberOfCycles)
       );
-      setTimeout(() => {
-        navigation.navigate('Finished', {
-          numberOfCycles: numberOfCycles,
-          exercise: 'Coherent Breathing',
-        });
-      }, 3000);
     } catch (error) {
       console.log('ERROR', error);
     }
@@ -56,11 +50,6 @@ const FiveByFive = ({ route, navigation }) => {
     };
   }, [cycle]);
 
-  useEffect(() => {
-    return () => {
-      setAnimationEnabled(false);
-    };
-  });
   const resizeOnFinish = () => {
     Animated.parallel([
       Animated.timing(outerMostCircle, {
@@ -77,8 +66,18 @@ const FiveByFive = ({ route, navigation }) => {
       }),
     ]).start(({ finished }) => {
       setAnimationEnabled(false);
+      navigation.navigate('Finished', {
+        numberOfCycles: numberOfCycles,
+        exercise: 'Coherent Breathing',
+      });
     });
   };
+
+  useEffect(() => {
+    return () => {
+      setAnimationEnabled(false);
+    };
+  });
   return (
     <View style={styles.container}>
       <View style={styles.screen}>

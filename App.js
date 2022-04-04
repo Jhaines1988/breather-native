@@ -9,7 +9,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { LogBox } from 'react-native';
+import { LogBox } from 'react-native';
+// import { YellowBox } from 'react-native';
 import { onAuthStateChange } from './firebase';
 import authReducer from './store/reducers/Authenticate';
 import userDataReducer from './store/reducers/UserData';
@@ -21,31 +22,13 @@ const rootReducer = combineReducers({
   auth: authReducer,
   userData: userDataReducer,
 });
-
+// console.ignoredYellowBox = ['Setting a timer'];
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
-// const testFunc = async () => {
-//   // try {
-//   //   const docRef = await addDoc(collection(db, 'users'), {
-//   //     first: 'Ada',
-//   //     last: 'Lovelace',
-//   //     born: 1815,
-//   //   });
-//   //   console.log('Document written with ID: ', docRef.id);
-//   // } catch (e) {
-//   //   console.error('Error adding document: ', e);
-//   // }
-
-//   const querySnapshot = await getDocs(collection(db, 'users'));
-//   querySnapshot.forEach((doc) => {
-//     console.log(`${doc.id} => ${doc.data().toString()}`);
-//   });
-// };
-
-// testFunc();
-// drawerContent={(props) => <CustomDrawerContent {...props} />}
-// testFunc();
 export default function App() {
+  // not a fix... but this issues is closed on github. Firebase sets long timers for
+  // sessions. On andriod, this throws an exception, as it sees a timer set for up to an hour when the user logs in...
+  LogBox.ignoreLogs(['Setting a timer']);
   let [fontsLoaded] = useFonts({
     'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
     'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
