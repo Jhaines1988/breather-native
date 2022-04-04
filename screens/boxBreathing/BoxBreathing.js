@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Animated, Easing, View, Text, Button, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/Colors';
-import roundDots from '../../Helpers/roundDots';
-import RenderStyleAndAnimation from '../../constants/AnimationStyle';
 import BreathingCircles from '../../components/BreathingCircles';
 import RenderDisplayDots from '../../components/DisplayDots';
-import CurrentRound from '../../components/CurrentRound';
 import BoxBreathingAnimation from './BoxBreathingAnimation';
 import * as userActions from '../../store/actions/UserData';
 import { useDispatch, useSelector } from 'react-redux';

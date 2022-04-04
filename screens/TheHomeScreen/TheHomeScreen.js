@@ -1,18 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Card from '../../components/Card';
 import TitleText from '../../components/TitleText';
-import Header from '../../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../store/actions/UserData';
+import Header from '../../components/Header';
 const TheHomeScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -113,7 +106,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    // height: '40%',
     borderRadius: 8,
     marginBottom: 24,
     width: '90%',
@@ -121,8 +113,6 @@ const styles = StyleSheet.create({
     color: 'black',
     backgroundColor: 'rgba(158, 150, 248, 0.2)',
     justifyContent: 'center',
-    // alignItems: 'center',
-    // alignContent: 'center',
   },
   textIconContainer: { flexDirection: 'row', justifyContent: 'space-between' },
   text: {

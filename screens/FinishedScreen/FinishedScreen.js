@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { Colors } from '../constants/Colors';
-import { BASEURL } from '../token';
-import { useDispatch, useSelector } from 'react-redux';
-import MainButton from '../components/MainButton';
+import { Colors } from '../../constants/Colors';
 
-import * as userActions from '../store/actions/UserData';
+import { useDispatch, useSelector } from 'react-redux';
+import MainButton from '../../components/MainButton';
+
+import * as userActions from '../../store/actions/UserData';
 
 const Finished = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
